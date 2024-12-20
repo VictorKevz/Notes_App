@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+:root {
+  /* Neutral Colors */
+  --neutral-950: #0e121b;
+  --neutral-900: #191b25;
+  --neutral-800: #232530;
+  --neutral-700: #2b3039;
+  --neutral-600: #525b68;
+  --neutral-500: #717784;
+  --neutral-400: #9a9aae;
+  --neutral-300: #cadfde;
+  --neutral-200: #e0e4ea;
+  --neutral-100: #f3f5f8;
+  --neutral-50: #f5f7fa;
+  --neutral-0: #ffffff;
+
+  /* Blue Colors */
+  --blue-700: #2547d0;
+  --blue-500: #353cff;
+  --blue-50: #ebf1ff;
+
+  /* Green Colors */
+  --green-500: #12c188;
+  --green-100: #d1f8e9;
+
+  /* Red Colors */
+  --red-500: #fb3746;
+  --red-100: #ffd5d8;
+}
+*,::before,::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+html,body{
+  font-size: 12px; /* You shouldn't do this! */
+  width: 100%;
+}
+
+button,input,fieldset{
+  background-color: inherit;
+  border: none;
+}
+button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a{
+  text-decoration: none;
+}
+li{
+  list-style-type: none;
+}

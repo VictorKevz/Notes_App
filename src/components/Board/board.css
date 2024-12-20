@@ -1,0 +1,70 @@
+.board-wrapper{
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: flex-start;
+    min-height: 900px;
+    border: 1px solid brown;
+}
+.content-wrapper{
+    max-width: 1168px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+.content-header{
+width: 100%;
+min-height: 81px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid gray;
+
+
+}
+.notes-detailed-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+.notes-wrapper{
+    max-width: 290px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 3.2rem;
+    border-right: 1px solid gray;
+    min-height: 819px;
+}
+.add-note-btn{
+    height: 4.1rem;
+    width: 100%;
+    background-color: var(--blue-500);
+}
+
+/* NOTE CARDS STYLING */
+.notes-list,.note-card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.note-card{
+    padding: .8rem;
+    gap: 1.2rem;
+}
+.note-card:not(.current-note,:last-child){
+    border-bottom: 1px solid gray;
+}
+.current-note{
+    background-color: brown;
+}
+.card-tag-list{
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}

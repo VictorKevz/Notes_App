@@ -1,0 +1,9 @@
+.outer-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--neutral-950);
+  color: var(--neutral-0);
+}
