@@ -4,11 +4,15 @@ import { ArchiveOutlined, HomeOutlined } from "@mui/icons-material";
 import TagList from "../TagList";
 import "./asideBar.css";
 import { DataContext } from "../../App";
-
-
+import TabNav from "../TabNav";
 
 function AsideBar() {
-  const{notes, dispatchNotes} = useContext(DataContext)
+  const { notes, dispatchNotes } = useContext(DataContext);
+
+  const headerLinks = [
+    { id: "allNotes", text: "All Notes", icon: HomeOutlined },
+    { id: "archivedNotes", text: "Archived Notes", icon: ArchiveOutlined },
+  ];
   return (
     <aside className="aside-wrapper">
       <header className="aside-header">
@@ -16,22 +20,9 @@ function AsideBar() {
       </header>
       <nav className="aside-nav">
         <ul className="links-wrapper">
-          <li className="link-item">
-            <button type="button" className="home" onClick={()=>{
-              dispatchNotes({type:"UPDATE_TAB",payload:{tab:"allNotes"}})
-            }}>
-              <HomeOutlined /> All Notes
-            </button>
-          </li>
-          <li className="link-item">
-            <button type="button" className="home" onClick={()=>{
-              dispatchNotes({type:"UPDATE_TAB",payload:{tab:"archivedNotes"}})
-            }}>
-              <ArchiveOutlined /> Archived Notes
-            </button>
-          </li>
+          <TabNav data={headerLinks} tabKey="asideCurrentTab" />
           <li className="tags-list-item">
-            <TagList/>
+            <TagList />
           </li>
         </ul>
       </nav>

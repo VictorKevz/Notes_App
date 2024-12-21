@@ -5,7 +5,6 @@ function NoteCards({ data, noteIndex, setNoteIndex }) {
   const { notes, dispatchNotes } = useContext(DataContext);
 
   
-//   setCurrentNoteObj(filteredData[noteIndex])
   return (
     <article className="notes-list">
       {data?.map((note, index) => {

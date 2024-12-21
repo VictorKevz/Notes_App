@@ -25,6 +25,36 @@ border-bottom: 1px solid gray;
 
 
 }
+/* SEARCH BAR STYLING */
+.search-settings-wrapper{
+    max-width: 358px;
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+.field,.search-label,.search-input{
+    width: 100%;
+    height: 44px;
+}
+.field{
+    display: flex;
+    align-items: center;
+    padding-left:1.6rem ;
+    border: 1px solid gray;
+    gap: .8rem;
+
+}
+.field:focus-within{
+    border-color: brown;
+}
+.search-input:focus{
+    outline: none;
+}
+
+
+
 .notes-detailed-wrapper{
     width: 100%;
     display: flex;

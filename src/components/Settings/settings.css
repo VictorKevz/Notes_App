@@ -1,0 +1,16 @@
+.settings-wrapper{
+    max-width: 1168px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+
+}
+.settings-nav{
+    max-width: 258px;
+    width: 100%;
+    min-height: 820px;
+    border-right: 1px solid gray;
+}
+.settings-list{
+    width: 100%;
+}

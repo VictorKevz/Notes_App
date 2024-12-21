@@ -21,11 +21,26 @@
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: antiquewhite;
     justify-content: flex-start;
-    padding: 1rem 1.2rem;
 }
+.btn{
+  width: 100%;
+  justify-content: flex-start;
+  padding: 1rem 1.2rem;
 
+}
+.btn-text{
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.current-link{
+  background-color: antiquewhite;
+justify-content: space-between;
+}
+.current-icon{
+  color: blue;
+}
 .tag-list,.tags-list-item{
     width: 100%;
 }
