@@ -29,6 +29,12 @@ const notesReducer = (state, action) => {
         showForm: true,
         asideCurrentTab: "allNotes",
       };
+      case "HIDE_FORM":
+        return {
+          ...state,
+          showForm: false,
+          asideCurrentTab: "allNotes",
+        };  
     case "UPDATE_FORM":
       const { name, value } = action.payload;
       return {
@@ -42,6 +48,14 @@ const notesReducer = (state, action) => {
           [name]: true,
         },
       };
+      case "VALIDATE_FORM":
+        const{isValid} = action.payload
+        return{
+          ...state,
+          isValid:{
+            ...isValid
+          }
+        }
     case "CREATE_NOTE":
       const { title, tags, content } = action.payload;
       return {
@@ -50,6 +64,17 @@ const notesReducer = (state, action) => {
           { id: uuid(), title, tags, content, isArchived: false },
           ...state.notesData,
         ],
+        showForm:false,
+        form: {
+          title: "",
+          tags: "",
+          content: "",
+        },
+        isValid: {
+          title: true,
+          tags: true,
+          content: true,
+        },
       };
     default:
       return state;

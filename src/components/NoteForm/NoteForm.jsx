@@ -1,10 +1,15 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
 import { AccessTimeOutlined, SellOutlined } from "@mui/icons-material";
-
+import "./noteForm.css";
 function NoteForm() {
   const { notes, dispatchNotes } = useContext(DataContext);
   const { title, tags, content } = notes.form;
+  const {
+    title: validTitle,
+    tags: validTags,
+    content: validContent,
+  } = notes.isValid;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +27,6 @@ function NoteForm() {
         },
       });
     } else {
-      alert("ERROR!");
       return;
     }
   };
@@ -38,6 +42,10 @@ function NoteForm() {
     if (content.trim() === "") {
       newFormValid.content = false;
     }
+    dispatchNotes({
+      type: "VALIDATE_FORM",
+      payload: { isValid: newFormValid },
+    });
     const isValid = Object.values(newFormValid).every(Boolean);
     return isValid;
   };
@@ -55,6 +63,9 @@ function NoteForm() {
             className="title-input"
           />
         </label>
+        {!validTitle && (
+          <span className="error-message">Provide a valid title</span>
+        )}
       </fieldset>
       <div className="tags-lastEdited-wrapper">
         <fieldset className="note-form-field">
@@ -71,15 +82,18 @@ function NoteForm() {
             placeholder="Add tags separated by commas (e.g. Work, Planning)"
             className="tags-input"
           />
+          {!validTags && (
+            <span className="error-message">Provide valid tags</span>
+          )}
         </fieldset>
         <div className="lastEdited">
-          <span>
+          <span className="tag-label">
             <AccessTimeOutlined /> Last Edited
           </span>
           <p className="lastEdited-text">Not yet saved</p>
         </div>
       </div>
-      <fieldset className="note-form-field">
+      <fieldset className="note-form-field content">
         <textarea
           name="content"
           value={content}
@@ -88,12 +102,18 @@ function NoteForm() {
           className="textarea-input"
           placeholder="Start typing your note here…"
         />
+                {!validContent && <span className="error-message">Provide valid content!</span>}
+
       </fieldset>
       <fieldset className="form-btn-wrapper">
         <button type="submit" className="form-btn save">
           Save Note
         </button>
-        <button type="button" className="form-btn cancel">
+        <button
+          type="button"
+          className="form-btn cancel"
+          onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
+        >
           Cancel
         </button>
       </fieldset>

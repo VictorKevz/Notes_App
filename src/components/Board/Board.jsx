@@ -1,13 +1,20 @@
 import React, { useContext, useState } from "react";
 import "./board.css";
 import AsideBar from "../AsideBar/AsideBar";
-import { Add, Settings } from "@mui/icons-material";
+import {
+  Add,
+  ArchiveOutlined,
+  DeleteOutlineOutlined,
+  RestartAltOutlined,
+  Settings,
+} from "@mui/icons-material";
 import NoteCards from "../NoteCards";
 import { DataContext } from "../../App";
 import DetailedNote from "../DetailedNote";
 import SearchBar from "../SearchBar";
 import SettingsPage from "../Settings/SettingsPage";
 import NoteForm from "../NoteForm/NoteForm";
+import Button from "../Button";
 
 function Board() {
   const { notes, dispatchNotes } = useContext(DataContext);
@@ -31,6 +38,25 @@ function Board() {
       note?.tags?.map((tag) => tag.toLowerCase().includes(query.toLowerCase()))
   );
   const currentNoteObj = filteredData?.[noteIndex];
+  const archiveData = {
+    text:
+      notes.asideCurrentTab !== "archivedNotes"
+        ? "Archive Note"
+        : "Restore Note",
+    icon:
+      notes.asideCurrentTab !== "archivedNotes"
+        ? ArchiveOutlined
+        : RestartAltOutlined,
+    typeText:
+      notes.asideCurrentTab !== "archivedNotes"
+        ? "ARCHIVE_NOTE"
+        : "RESTORE_NOTE",
+  };
+  const deleteData = {
+    text: "Delete Note",
+    icon: DeleteOutlineOutlined,
+    typeText: "DELETE_NOTE",
+  };
   return (
     <div className="board-wrapper">
       <AsideBar />
@@ -79,6 +105,11 @@ function Board() {
               ) : (
                 <DetailedNote obj={currentNoteObj} />
               )}
+            </div>
+            <div className="btn-actions-wrapper">
+              <Button data={archiveData} />
+
+              <Button data={deleteData} />
             </div>
           </div>
         )}
