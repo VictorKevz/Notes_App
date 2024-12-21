@@ -7,6 +7,7 @@ import { DataContext } from "../../App";
 import DetailedNote from "../DetailedNote";
 import SearchBar from "../SearchBar";
 import SettingsPage from "../Settings/SettingsPage";
+import NoteForm from "../NoteForm/NoteForm";
 
 function Board() {
   const { notes, dispatchNotes } = useContext(DataContext);
@@ -58,10 +59,12 @@ function Board() {
         ) : (
           <div className="notes-detailed-wrapper">
             <div className="notes-wrapper">
-              <button type="button" className="add-note-btn">
-                {" "}
-                <Add />
-                Create New Note{" "}
+              <button
+                type="button"
+                className="add-note-btn"
+                onClick={() => dispatchNotes({ type: "SHOW_FORM" })}
+              >
+                <Add /> Create New Note
               </button>
               <NoteCards
                 data={searchResults}
@@ -71,7 +74,11 @@ function Board() {
             </div>
 
             <div className="detailed-notes-wrapper">
-              <DetailedNote obj={currentNoteObj} />
+              {notes.showForm ? (
+                <NoteForm />
+              ) : (
+                <DetailedNote obj={currentNoteObj} />
+              )}
             </div>
           </div>
         )}

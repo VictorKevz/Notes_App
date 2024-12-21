@@ -10,7 +10,56 @@
     width: 100%;
     min-height: 820px;
     border-right: 1px solid gray;
+    padding-top: 3.2rem;
+
 }
 .settings-list{
     width: 100%;
+}
+.theme-options-wrapper{
+    max-width: 528px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 3.2rem;
+}
+
+.theme-options-list,.theme-option-item{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.theme-option-btn{
+    width: 100%;
+    justify-content: space-between;
+    border: 1px solid gray;
+    height: 72px;
+    padding: 0 1.6rem;
+}
+.current-theme{
+    background-color: antiquewhite;
+}
+.left-side-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+.icon-wrapper{
+    height: 4rem;
+    width: 4rem;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text-wrapper{
+    text-align: left;
+}
+.right-icon{
+    height: 1.6rem;
+    width: 1.6rem;
+    border-radius: 50%;
+    border: 4px solid gray;
 }

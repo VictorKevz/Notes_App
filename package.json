@@ -1,11 +1,11 @@
 {
-  "homepage": "https://VictorKevz.github.io/Notes_App/", 
+  "homepage": "https://VictorKevz.github.io/Notes_App/",
   "name": "notes-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build", 
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
@@ -19,7 +19,8 @@
     "@mui/material": "^6.2.1",
     "framer-motion": "^11.15.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-uuid": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

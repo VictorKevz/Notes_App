@@ -1,5 +1,7 @@
+import uuid from 'react-uuid';
 export const data = [
   {
+    id:uuid(),
     title: "React Performance Optimization",
     tags: ["Dev", "React"],
     content:
@@ -8,6 +10,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "Japan Travel Planning",
     tags: ["Travel", "Personal"],
     content:
@@ -16,6 +19,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "Favorite Pasta Recipes",
     tags: ["Cooking", "Recipes"],
     content:
@@ -24,6 +28,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "TypeScript Migration Guide",
     tags: ["Dev", "React", "TypeScript"],
     content:
@@ -32,6 +37,7 @@ export const data = [
     isArchived: true,
   },
   {
+    id:uuid(),
     title: "Weekly Workout Plan",
     tags: ["Fitness", "Health"],
     content:
@@ -40,6 +46,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "Gift Ideas",
     tags: ["Personal", "Shopping"],
     content:
@@ -48,6 +55,7 @@ export const data = [
     isArchived: true,
   },
   {
+    id:uuid(),
     title: "React Component Library",
     tags: ["Dev", "React"],
     content:
@@ -56,6 +64,7 @@ export const data = [
     isArchived: true,
   },
   {
+    id:uuid(),
     title: "Meal Prep Ideas",
     tags: ["Cooking", "Health", "Recipes"],
     content:
@@ -64,6 +73,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "Reading List",
     tags: ["Personal", "Dev"],
     content:
@@ -72,6 +82,7 @@ export const data = [
     isArchived: false,
   },
   {
+    id:uuid(),
     title: "Fitness Goals 2025",
     tags: ["Fitness", "Health", "Personal"],
     content:

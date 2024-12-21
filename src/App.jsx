@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer, useState } from "react";
+import uuid from 'react-uuid';
 import "./App.css";
 import Board from "./components/Board/Board";
 import { data } from "./data";
@@ -9,11 +10,12 @@ export const DataContext = createContext();
 const notesReducer = (state, action) => {
   switch (action.type) {
     case "UPDATE_TAB":
-      const { tab,key } = action.payload;
+      const { tab, key } = action.payload;
       return {
         ...state,
         [key]: tab,
-        currentTag:""
+        currentTag: "",
+        showForm: false,
       };
     case "UPDATE_TAG":
       const { tag } = action.payload;
@@ -21,12 +23,34 @@ const notesReducer = (state, action) => {
         ...state,
         currentTag: tag,
       };
-     case"RENDER_SETTINGS":
-     return{
-      ...state,
-      isSettings:true
-     }
-
+    case "SHOW_FORM":
+      return {
+        ...state,
+        showForm: true,
+        asideCurrentTab: "allNotes",
+      };
+    case "UPDATE_FORM":
+      const { name, value } = action.payload;
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [name]: value,
+        },
+        isValid: {
+          ...state.isValid,
+          [name]: true,
+        },
+      };
+    case "CREATE_NOTE":
+      const { title, tags, content } = action.payload;
+      return {
+        ...state,
+        notesData: [
+          { id: uuid(), title, tags, content, isArchived: false },
+          ...state.notesData,
+        ],
+      };
     default:
       return state;
   }
@@ -39,10 +63,19 @@ function App() {
     asideCurrentTab: "allNotes",
     currentTag: "",
     settingsCurrentTab: "colorTheme",
-    isSettings:false,
-    fontTheme:"'Inter', serif",
-    colorTheme:"lightMode"
-    
+    fontTheme: "'Inter', serif",
+    colorTheme: "lightMode",
+    showForm: false,
+    form: {
+      title: "",
+      tags: "",
+      content: "",
+    },
+    isValid: {
+      title: true,
+      tags: true,
+      content: true,
+    },
   };
   const [notes, dispatchNotes] = useReducer(notesReducer, initialData);
 
@@ -51,7 +84,10 @@ function App() {
   }, [notes?.notesData]);
   return (
     <DataContext.Provider value={{ notes, dispatchNotes }}>
-      <main className="outer-container">
+      <main
+        className="outer-container"
+        style={{ fontFamily: `${notes.fontTheme}` }}
+      >
         <Board />
       </main>
     </DataContext.Provider>

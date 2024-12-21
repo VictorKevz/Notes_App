@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { DataContext } from "../../App";
 
 function ThemeOptions() {
-  const { notes } = useContext(DataContext);
+  const { notes, dispatchNotes } = useContext(DataContext);
   const themeData = {
     colorTheme: {
       id: "colorTheme",
@@ -65,9 +65,22 @@ function ThemeOptions() {
       </header>
       <ul className="theme-options-list">
         {obj.options.map((option) => {
+          const isSelected = option.id === notes[obj.id];
           return (
-            <li className="theme-option-item">
-              <button type="button" className="theme-option-btn">
+            <li key={option.id} className="theme-option-item">
+              <button
+                type="button"
+                className={`theme-option-btn ${isSelected && "current-theme"}`}
+                onClick={() => {
+                  dispatchNotes({
+                    type: "UPDATE_TAB",
+                    payload: {
+                      tab: option.id,
+                      key: obj.id,
+                    },
+                  });
+                }}
+              >
                 <span className="left-side-wrapper">
                   <span className="icon-wrapper">
                     {obj.id === "colorTheme" ? <option.icon /> : option.text}
