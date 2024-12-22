@@ -15,6 +15,7 @@ import SearchBar from "../SearchBar";
 import SettingsPage from "../Settings/SettingsPage";
 import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
+import WarningModal from "../WarningModal/WarningModal";
 
 function Board() {
   const { notes, dispatchNotes, currentNoteObj, searchResults } =
@@ -29,15 +30,19 @@ function Board() {
       notes.asideCurrentTab !== "archivedNotes"
         ? ArchiveOutlined
         : RestartAltOutlined,
-    typeText:
+    typeText: "ARCHIVE_NOTE",
+
+    parag:
       notes.asideCurrentTab !== "archivedNotes"
-        ? "ARCHIVE_NOTE"
-        : "RESTORE_NOTE",
+        ? "Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
+        : "Are you sure you want to restore this note? This note will be restored to All Notes section.",
   };
   const deleteData = {
     text: "Delete Note",
     icon: DeleteOutlineOutlined,
     typeText: "DELETE_NOTE",
+    parag:
+      "Are you sure you want to delete this note? This action cannot be undone.",
   };
   return (
     <div className="board-wrapper">
@@ -94,6 +99,7 @@ function Board() {
           </div>
         )}
       </section>
+      {notes.warningModal && <WarningModal />}
     </div>
   );
 }

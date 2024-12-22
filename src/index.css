@@ -36,6 +36,7 @@
 html,body{
   font-size: 12px; /* You shouldn't do this! */
   width: 100%;
+  overflow-x: hidden;
 }
 
 button,input,fieldset{

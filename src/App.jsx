@@ -29,18 +29,49 @@ const notesReducer = (state, action) => {
         ...state,
         currentNoteId: id,
       };
+    case "OPEN_MODAL":
+      const { modalId, icon, typeText, parag, modalTitle } = action.payload;
+      return {
+        ...state,
+        warningModal: true,
+        modalData: { modalId, icon, typeText, parag, modalTitle },
+      };
+    case "CLOSE_MODAL":
+      return {
+        ...state,
+        warningModal: false,
+        modalData: {},
+      };
     case "DELETE_NOTE":
       return {
         ...state,
         notesData: state.notesData.filter(
           (note) => note?.id !== state?.currentNoteId
         ),
+        warningModal: false,
+        modalData: {},
       };
+    case "ARCHIVE_NOTE":
+      return {
+        ...state,
+        notesData: state.notesData.map((note) =>
+          note.id === state.currentNoteId
+            ? {
+                ...note,
+                isArchived: !note.isArchived,
+              }
+            : note
+        ),
+        warningModal: false,
+        modalData: {},
+      };
+
     case "SHOW_FORM":
       return {
         ...state,
         showForm: true,
         asideCurrentTab: "allNotes",
+        currentTag: "",
       };
     case "HIDE_FORM":
       return {
@@ -100,9 +131,16 @@ function App() {
   const initialData = {
     notesData: parsedData ? parsedData : data,
     asideCurrentTab: "allNotes",
-    currentNoteId: parsedData?.length > 0 ? parsedData?.[0].id : data?.length > 0 ? data[0].id : null,
+    currentNoteId:
+      parsedData?.length > 0
+        ? parsedData?.[0].id
+        : data?.length > 0
+        ? data[0].id
+        : null,
     currentTag: "",
     settingsCurrentTab: "colorTheme",
+    warningModal: false,
+    modalData: {},
     fontTheme: "'Inter', serif",
     colorTheme: "lightMode",
     showForm: false,
@@ -146,18 +184,32 @@ function App() {
 
   useEffect(() => {
     // If searchResults is not empty and currentNoteId is not valid, update it
-    if (searchResults.length > 0 && !searchResults.some(note => note.id === notes.currentNoteId)) {
-      dispatchNotes({ type: "UPDATE_NOTE", payload: { id: searchResults[0]?.id } });
+    if (
+      searchResults.length > 0 &&
+      !searchResults.some((note) => note.id === notes.currentNoteId)
+    ) {
+      dispatchNotes({
+        type: "UPDATE_NOTE",
+        payload: { id: searchResults[0]?.id },
+      });
     }
   }, [searchResults, notes.currentNoteId]);
-  
-  
+
+  const isDark = notes.colorTheme === "darkMode";
   return (
     <DataContext.Provider
-      value={{ notes, dispatchNotes, currentNoteObj,searchResults, query, setQuery }}
+      value={{
+        notes,
+        dispatchNotes,
+        currentNoteObj,
+        searchResults,
+        query,
+        setQuery,
+        isDark,
+      }}
     >
       <main
-        className="outer-container"
+        className={`outer-container ${isDark && "dark-body-bg"}`}
         style={{ fontFamily: `${notes.fontTheme}` }}
       >
         <Board />

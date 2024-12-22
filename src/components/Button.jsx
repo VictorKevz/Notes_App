@@ -8,8 +8,15 @@ function Button({ data }) {
       className="reusable-btn"
       onClick={() =>
         dispatchNotes({
-          type: `${data.typeText}`,
-          payload: { id: notes?.currentNoteId },
+          type: "OPEN_MODAL",
+          payload: { 
+            modalId: notes?.currentNoteId,
+            icon:data.icon,
+            typeText:data.typeText,
+            modalTitle:data.text,
+            parag:data.parag
+
+          },
         })
       }
     >

@@ -4,6 +4,12 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #222121;
+  background-color: #2f2d2d;
   color: var(--neutral-0);
+  transition: .3s ease-in-out;
+
+}
+.dark-body-bg{
+  background-color: var(--neutral-950);
+  transition: .3s ease-in-out;
 }
