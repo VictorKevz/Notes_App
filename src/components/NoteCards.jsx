@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
 import { DataContext } from "../App";
 
-function NoteCards({ data, noteIndex, setNoteIndex }) {
+function NoteCards({ data}) {
   const { notes, dispatchNotes } = useContext(DataContext);
 
   
   return (
     <article className="notes-list">
-      {data?.map((note, index) => {
-        const isCurrent = noteIndex === index;
+      {data?.map((note) => {
+        const isCurrent = notes?.currentNoteId === note.id;
         return (
           <div
-            key={index}
+            key={note.id}
             className={`note-card ${isCurrent && "current-note"}`}
             role="button"
             tabIndex={0}
             onClick={() => {
-              setNoteIndex(index);
+              dispatchNotes({type:"UPDATE_NOTE",payload:{id:note?.id}})
             }}
           >
             <h3 className="note-title">{note?.title}</h3>

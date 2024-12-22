@@ -1,7 +1,10 @@
 import { SearchOutlined } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
+import { DataContext } from "../App";
 
-function SearchBar({ query, setQuery }) {
+function SearchBar() {
+    const { query, setQuery } = useContext(DataContext);
+  
   return (
     <fieldset className="field">
         <SearchOutlined/>

@@ -17,27 +17,9 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 
 function Board() {
-  const { notes, dispatchNotes } = useContext(DataContext);
-  const [noteIndex, setNoteIndex] = useState(0);
-  const [query, setQuery] = useState("");
+  const { notes, dispatchNotes, currentNoteObj, searchResults } =
+    useContext(DataContext);
 
-  const filteredData = notes?.notesData?.filter((note) => {
-    if (notes?.asideCurrentTab === "archivedNotes") {
-      return note?.isArchived;
-    }
-    if (notes?.asideCurrentTab === "tags") {
-      return note?.tags?.includes(notes?.currentTag);
-    } else {
-      return true;
-    }
-  });
-
-  const searchResults = filteredData.filter(
-    (note) =>
-      note?.title?.toLowerCase()?.includes(query?.toLowerCase()) ||
-      note?.tags?.map((tag) => tag.toLowerCase().includes(query.toLowerCase()))
-  );
-  const currentNoteObj = filteredData?.[noteIndex];
   const archiveData = {
     text:
       notes.asideCurrentTab !== "archivedNotes"
@@ -59,12 +41,12 @@ function Board() {
   };
   return (
     <div className="board-wrapper">
-      <AsideBar />
+      <AsideBar obj={currentNoteObj} />
       <section className="content-wrapper">
         <header className="content-header">
           <h1 className="title">All Notes</h1>
           <div className="search-settings-wrapper">
-            <SearchBar query={query} setQuery={setQuery} />
+            <SearchBar />
             <button
               type="button"
               className="settings-btn"
@@ -92,11 +74,7 @@ function Board() {
               >
                 <Add /> Create New Note
               </button>
-              <NoteCards
-                data={searchResults}
-                noteIndex={noteIndex}
-                setNoteIndex={setNoteIndex}
-              />
+              <NoteCards data={searchResults} />
             </div>
 
             <div className="detailed-notes-wrapper">
@@ -106,11 +84,13 @@ function Board() {
                 <DetailedNote obj={currentNoteObj} />
               )}
             </div>
-            <div className="btn-actions-wrapper">
-              <Button data={archiveData} />
+            {!notes.showForm && (
+              <div className="btn-actions-wrapper">
+                <Button data={archiveData} />
 
-              <Button data={deleteData} />
-            </div>
+                <Button data={deleteData} />
+              </div>
+            )}
           </div>
         )}
       </section>

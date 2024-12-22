@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { KeyboardArrowRight, LocalOfferOutlined } from "@mui/icons-material";
 import "./AsideBar/asideBar.css";
 import { DataContext } from "../App";
-import { span } from "framer-motion/client";
 function TagList() {
   const { notes, dispatchNotes } = useContext(DataContext);
   const tagsList = notes?.notesData?.map((obj) => obj?.tags);
