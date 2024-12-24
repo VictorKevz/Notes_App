@@ -22,13 +22,13 @@
 
 .title-input:focus,.tags-input:focus{
     outline: none;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--neutral-200);
     transition: .3s ease-in-out;
 }
 .tags-lastEdited-wrapper{
     width: 100%;
     padding: 1.6rem 0;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--neutral-200);
 }
 .tag-label{
     gap: .6rem;
@@ -42,7 +42,7 @@
 width: 100%;
 }
 .note-form-field.content{
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--neutral-200);
    
 }
 .textarea-input{
@@ -54,7 +54,7 @@ min-height: 567px;
 }
 .textarea-input:focus{
     outline: none;
-    border: 1px solid gray;
+    border: 1px solid var(--neutral-200);
     padding: 1.6rem;
     transition: .3s ease-in-out;
     border-radius: .64rem;

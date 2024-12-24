@@ -90,7 +90,7 @@ function ThemeOptions() {
                     <p className="option-parag">{option.parag}</p>
                   </span>
                 </span>
-                <span className="right-icon"></span>
+                <span className={`right-icon ${isSelected && "current-icon"}`}></span>
               </button>
             </li>
           );

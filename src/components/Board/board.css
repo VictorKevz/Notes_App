@@ -5,8 +5,9 @@
     /* flex-direction: column; */
     align-items: flex-start;
     min-height: 900px;
-    border: 1px solid brown;
     position: relative;
+    border: 1px solid var(--neutral-200);
+border-radius: 1.2rem;
 }
 .content-wrapper{
     max-width: 1168px;
@@ -22,7 +23,7 @@ min-height: 81px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-border-bottom: 1px solid gray;
+border-bottom: 1px solid var(--neutral-200);
 
 
 }
@@ -96,7 +97,7 @@ border-bottom: 1px solid gray;
     height: 4.4rem;
     padding: 0 1.6rem;
     justify-content: flex-start;
-    border: 1px solid gray;
+    border: 1px solid var(--neutral-200);
     gap: .8rem;
     border-radius: .8rem;
 }
@@ -110,12 +111,14 @@ border-bottom: 1px solid gray;
 .note-card{
     padding: .8rem;
     gap: 1.2rem;
+    /* width: 100%; */
 }
 .note-card:not(.current-note,:last-child){
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--neutral-200);
 }
 .current-note{
-    background-color: brown;
+    background-color: var(--neutral-100);
+    border-radius: .6rem;
 }
 .card-tag-list{
     display: flex;
@@ -134,13 +137,14 @@ border-bottom: 1px solid gray;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    background-color: rgba(9, 7, 7, 0.686);
+    background-color: rgba(39, 37, 37, 0.728);
+
 }
 .modal-container{
     max-width: 440px;
     width: 100%;
     min-height: 175px;
-    background-color: var(--neutral-900);
+    background-color: var(--neutral-0);
     border-radius: 1.2rem;
     padding: 2rem 0 1.6rem 0;
 }

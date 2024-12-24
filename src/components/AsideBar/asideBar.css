@@ -9,7 +9,7 @@
   max-width: 272px;
   padding: 1.2rem 1.6rem;
   min-height: 900px;
-  border-right: 1px solid gray;
+  border-right: 1px solid var(--neutral-200);
 }
 .aside-nav {
   margin-top: 1.6rem;
@@ -35,11 +35,11 @@
   gap: .8rem;
 }
 .current-link{
-  background-color: antiquewhite;
+  background-color: var(--neutral-100);
 justify-content: space-between;
 }
 .current-icon{
-  color: blue;
+  color: var(--blue-500);
 }
 .tag-list,.tags-list-item{
     width: 100%;
