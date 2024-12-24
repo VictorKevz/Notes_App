@@ -33,14 +33,22 @@
   display: flex;
   align-items: center;
   gap: .8rem;
+  font-size: 1.4rem;
+  font-weight: normal;
 }
 .current-link{
   background-color: var(--neutral-100);
 justify-content: space-between;
+border-radius: .8rem;
+}
+.link-icon{
+  font-size: 2rem!important;
 }
 .current-icon{
   color: var(--blue-500);
 }
+
+/* TAGS STYLING */
 .tag-list,.tags-list-item{
     width: 100%;
 }
@@ -49,10 +57,14 @@ display: flex;
 flex-direction: column;
 gap: 1.2rem;
 padding-top: .8rem;
-border-top: 1px solid gray;
+border-top: 1px solid var(--neutral-200);
 font-size: 1.6rem;
 
-
+}
+.tag-heading{
+  color: var(--neutral-500);
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 .tag-item{
     width: 100%;

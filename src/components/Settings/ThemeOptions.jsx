@@ -1,6 +1,7 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
+import { span } from "framer-motion/client";
 
 function ThemeOptions() {
   const { notes, dispatchNotes } = useContext(DataContext);
@@ -64,8 +65,10 @@ function ThemeOptions() {
         <p className="theme-parag">{obj.parag}</p>
       </header>
       <ul className="theme-options-list">
-        {obj.options.map((option) => {
+        {obj.options.map((option,index) => {
           const isSelected = option.id === notes[obj.id];
+          const isSerif = index === 1;
+          const isMono = index === 2;
           return (
             <li key={option.id} className="theme-option-item">
               <button
@@ -83,14 +86,20 @@ function ThemeOptions() {
               >
                 <span className="left-side-wrapper">
                   <span className="icon-wrapper">
-                    {obj.id === "colorTheme" ? <option.icon /> : option.text}
+                    {obj.id === "colorTheme" ? (
+                      <option.icon />
+                    ) : (
+                      <span className={`font-option ${isSerif && "serif"} ${isMono && "mono"}`}>{option.text}</span>
+                    )}
                   </span>
                   <span className="text-wrapper">
                     <h4 className="option-title">{option.label}</h4>
                     <p className="option-parag">{option.parag}</p>
                   </span>
                 </span>
-                <span className={`right-icon ${isSelected && "current-icon"}`}></span>
+                <span
+                  className={`right-icon ${isSelected && "current-icon"}`}
+                ></span>
               </button>
             </li>
           );

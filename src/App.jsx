@@ -135,6 +135,7 @@ const notesReducer = (state, action) => {
               }
             : note
         ),
+        currentNoteId:editNoteId
       };
     default:
       return state;
@@ -199,7 +200,6 @@ function App() {
   }, [notes?.notesData]);
 
   useEffect(() => {
-    // If searchResults is not empty and currentNoteId is not valid, update it
     if (
       searchResults.length > 0 &&
       !searchResults.some((note) => note.id === notes.currentNoteId)
@@ -229,6 +229,7 @@ function App() {
         style={{ fontFamily: `${notes.fontTheme}` }}
       >
         <Board />
+
       </main>
     </DataContext.Provider>
   );

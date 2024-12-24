@@ -18,7 +18,7 @@ import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 
 function Board() {
-  const { notes, dispatchNotes, currentNoteObj, searchResults } =
+  const { notes, dispatchNotes, searchResults } =
     useContext(DataContext);
 
 
@@ -31,7 +31,7 @@ const getTitle = () => {
     title = "Archived Notes"
   }
   if(notes.asideCurrentTab === "tags"){
-    title = `NotesTagged: ${notes.currentTag}`
+    title = `Notes Tagged: ${notes.currentTag}`
   }
   if(notes.asideCurrentTab === "settingsTab"){
     title = "Settings"
@@ -62,17 +62,18 @@ const getTitle = () => {
     parag:
       "Are you sure you want to delete this note? This action cannot be undone.",
   };
+  const isSettings = notes.asideCurrentTab === "settingsTab"
   return (
     <div className="board-wrapper">
-      <AsideBar obj={currentNoteObj} />
+      <AsideBar />
       <section className="content-wrapper">
         <header className="content-header">
-          <h1 className="title">{getTitle()}</h1>
+          <h1 className="main-title">{getTitle()}</h1>
           <div className="search-settings-wrapper">
             <SearchBar />
             <button
               type="button"
-              className="settings-btn"
+              className={`settings-btn ${isSettings && "active-settings-btn"}`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",
@@ -104,7 +105,7 @@ const getTitle = () => {
               {notes.showForm ? (
                 <NoteForm />
               ) : (
-                <DetailedNote obj={currentNoteObj} />
+                <DetailedNote />
               )}
             </div>
             {!notes.showForm && (

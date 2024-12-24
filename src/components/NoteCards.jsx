@@ -9,6 +9,12 @@ function NoteCards({ data}) {
     <article className="notes-list">
       {data?.map((note) => {
         const isCurrent = notes?.currentNoteId === note.id;
+        const lastEdited = note?.lastEdited;
+  const formattedDate = new Date(lastEdited).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
         return (
           <div
             key={note.id}
@@ -27,7 +33,7 @@ function NoteCards({ data}) {
                 </li>
               ))}
             </ul>
-            <p className="card-date">{note?.lastEdited}</p>
+            <p className="card-date">{formattedDate}</p>
           </div>
         );
       })}

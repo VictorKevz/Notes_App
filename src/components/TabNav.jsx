@@ -3,7 +3,7 @@ import { DataContext } from "../App";
 import { KeyboardArrowRight } from "@mui/icons-material";
 
 function TabNav({ data, tabKey }) {
-  const { notes,dispatchNotes } = useContext(DataContext);
+  const { notes, dispatchNotes } = useContext(DataContext);
   return (
     <>
       {data.map((link) => {
@@ -23,9 +23,9 @@ function TabNav({ data, tabKey }) {
               <span className="btn-text">
                 <link.icon
                   className={`link-icon ${isCurrent && "current-icon"}`}
-                />{" "}
+                />
                 {link.text}
-              </span>{" "}
+              </span>
               {isCurrent && <KeyboardArrowRight />}
             </button>
           </li>
@@ -36,4 +36,3 @@ function TabNav({ data, tabKey }) {
 }
 
 export default TabNav;
- 

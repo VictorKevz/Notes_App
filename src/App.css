@@ -5,10 +5,13 @@
   justify-content: center;
   min-height: 100vh;
   background-color: var(--neutral-0);
+position: relative;
   color: var(--neutral-950);
   transition: .3s ease-in-out;
+  z-index: 5;
 
 }
+
 .dark-body-bg{
   background-color: var(--neutral-950);
   color: var(--neutral-0);

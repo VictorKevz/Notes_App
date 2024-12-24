@@ -4,20 +4,25 @@ import {
   Close,
   LocalOfferOutlined,
 } from "@mui/icons-material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./detailedNote.css";
 import { DataContext } from "../../App";
-import { title } from "framer-motion/client";
 
-function DetailedNote({ obj }) {
-  const { dispatchNotes } = useContext(DataContext);
+function DetailedNote() {
+  const { dispatchNotes,currentNoteObj:obj } = useContext(DataContext);
   const [editFields, setEditFields] = useState([]);
   const [editForm, setEditForm] = useState({
     title: obj?.title,
     tags: obj?.tags.join(", "),
     content: obj?.content,
   });
-
+  useEffect(() => {
+    setEditForm({
+      title: obj?.title || "",
+      tags: obj?.tags?.join(", ") || "",
+      content: obj?.content || "",
+    });
+  }, [obj]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditForm((prevFields) => ({
@@ -45,8 +50,8 @@ function DetailedNote({ obj }) {
       payload: {
         editNoteId: obj.id,
         title: editForm.title,
-        tags:editForm.tags.split(",").map((tag) => tag.trim()),
-        content:editForm.content
+        tags: editForm.tags.split(",").map((tag) => tag.trim()),
+        content: editForm.content,
       },
     });
     updateFields(field);
@@ -125,16 +130,24 @@ function DetailedNote({ obj }) {
             </div>
           </fieldset>
         ) : (
-          <p className="tags" onClick={() => updateFields("tags")}>
-            <LocalOfferOutlined /> Tags
-            <span className="tag">{obj?.tags.join(", ")}</span>
-          </p>
+          <div
+            className="detailed-tags-list"
+            onClick={() => updateFields("tags")}
+          >
+            <span className="detailed-tag-text">
+              <LocalOfferOutlined /> Tags
+            </span>
+            <span className="detailed-tags">{obj?.tags.join(", ")}</span>
+          </div>
         )}
 
-        <p className="timeEdited">
-          <AccessTimeFilledOutlined /> Last Edited{" "}
-          <span className="tag">{formattedDate}</span>
-        </p>
+        <div className="detailed-time-edited">
+          <span className="detailed-time-text">
+            <AccessTimeFilledOutlined /> Last Edited
+          </span>
+
+          <span className="detailed-time">{formattedDate}</span>
+        </div>
       </header>
 
       {editFields.includes("content") ? (
@@ -170,8 +183,8 @@ function DetailedNote({ obj }) {
           className="detailed-note-content"
           onClick={() => updateFields("content")}
         >
-          {obj?.content}
-          {/* <p className="content-title"></p> */}
+          <pre className="content-text">{obj?.content}</pre>
+          {/* <p ></p> */}
         </div>
       )}
     </div>
