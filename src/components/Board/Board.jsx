@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import NoteCards from "../NoteCards";
 import { DataContext } from "../../App";
-import DetailedNote from "../DetailedNote";
+import DetailedNote from "../DetailedNote/DetailedNote";
 import SearchBar from "../SearchBar";
 import SettingsPage from "../Settings/SettingsPage";
 import NoteForm from "../NoteForm/NoteForm";
@@ -20,6 +20,24 @@ import WarningModal from "../WarningModal/WarningModal";
 function Board() {
   const { notes, dispatchNotes, currentNoteObj, searchResults } =
     useContext(DataContext);
+
+
+const getTitle = () => {
+  let title;
+  if(notes.asideCurrentTab === "allNotes"){
+    title = "All Notes"
+  }
+  if(notes.asideCurrentTab === "archivedNotes"){
+    title = "Archived Notes"
+  }
+  if(notes.asideCurrentTab === "tags"){
+    title = `NotesTagged: ${notes.currentTag}`
+  }
+  if(notes.asideCurrentTab === "settingsTab"){
+    title = "Settings"
+  }
+  return title;
+}
 
   const archiveData = {
     text:
@@ -49,7 +67,7 @@ function Board() {
       <AsideBar obj={currentNoteObj} />
       <section className="content-wrapper">
         <header className="content-header">
-          <h1 className="title">All Notes</h1>
+          <h1 className="title">{getTitle()}</h1>
           <div className="search-settings-wrapper">
             <SearchBar />
             <button

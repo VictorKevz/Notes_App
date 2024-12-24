@@ -1,0 +1,64 @@
+.detailed-note-container {
+  padding: 2rem 1.6rem;
+}
+
+.note-field.edit,
+.edit-cta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.note-field.edit {
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0 1.6rem 0;
+  transition: 0.3s ease-in-out;
+}
+.edit-cta {
+  gap: 1rem;
+}
+.title-input.edit,
+.tags-input.edit {
+  min-width: fit-content;
+  font-size: 1.5rem;
+  color: var(--neutral-400);
+  transition: 0.3s ease-in-out;
+  border-bottom: 0.02rem solid var(--neutral-100);
+}
+.title-input.edit:focus,
+.tags-input.edit {
+  border-bottom: 0.02rem solid gray !important;
+}
+.edit-btn {
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--blue-500);
+  color: var(--neutral-0);
+}
+.edit-btn.cancel {
+  background-color: var(--red-500);
+}
+.textarea-input.edit {
+  color: var(--neutral-400);
+  font-size: 1.2rem;
+  border: none;
+  min-height: 500px;
+
+}
+.note-field.edit-content {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  transition: 0.3s ease-in-out;
+  border-radius: 0.64rem;
+  padding: 1rem;
+  margin-top: 1.6rem;
+}
+.edit-cta.content{
+width: 100%;
+justify-content: flex-end;
+}
+.textarea-input.edit:focus {
+  border: none;
+}

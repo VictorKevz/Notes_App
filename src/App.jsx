@@ -120,6 +120,22 @@ const notesReducer = (state, action) => {
           content: true,
         },
       };
+    case "EDIT_NOTE":
+      const { editNoteId, title:editTitle,tags:editTags,content:editContent } = action.payload;
+      return {
+        ...state,
+        notesData: state.notesData.map((note) =>
+          note.id === editNoteId
+            ? {
+                ...note,
+                title:editTitle,
+                tags:editTags,
+                content:editContent
+
+              }
+            : note
+        ),
+      };
     default:
       return state;
   }
@@ -141,8 +157,8 @@ function App() {
     settingsCurrentTab: "colorTheme",
     warningModal: false,
     modalData: {},
-    fontTheme: "'Inter', serif",
-    colorTheme: "lightMode",
+    fontTheme: JSON.parse(localStorage.getItem("fontTheme")) || "'Inter', serif",
+    colorTheme: JSON.parse(localStorage.getItem("colorTheme")) || "lightMode",
     showForm: false,
     form: {
       title: "",
