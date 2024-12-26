@@ -179,10 +179,11 @@
   font-size: 1.2rem;
   font-weight: normal;
 }
-
+/* DETAILED NOTE STYLING */
+.tag-link.mobile,
 .tablet-mobile-board,
 .links-wrapper.mobile {
-  display: none;
+  display: none!important;
 }
 /* TABLET/MOBILE STYLES */
 @media (max-width: 1200px) {
@@ -193,8 +194,8 @@
     min-height: 100vh !important;
     border: none;
   }
-  .links-wrapper.mobile {
-    display: flex;
+  .links-wrapper.mobile,.tag-link.mobile,.tablet-mobile-board {
+    display: flex!important;
   }
   .tablet-mobile-board {
     display: flex;
@@ -248,15 +249,7 @@
     display: flex;
     gap: 1.2rem;
   }
-  /* .reusable-btn.mobile{
-border: none;
-  } */
+
 }
 
-/* .aside-nav.mobile,.link-item,.links-wrapper.mobile{
-width: 100%;
-max-width: 100%!important;
-flex-direction: row;
-justify-content: space-between;
-background-color: aqua;
-} */
+

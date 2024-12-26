@@ -14,16 +14,16 @@ const notesReducer = (state, action) => {
       return {
         ...state,
         [key]: tab,
-        currentTag: "",
+        currentTag: tab === "tags" ? state.currentTag : "",
         showForm: false,
-        showDetailed:false
+        // showDetailed:false
       };
     case "UPDATE_TAG":
       const { tag } = action.payload;
       return {
         ...state,
         currentTag: tag,
-        showDetailed:true
+        // showDetailed:true
       };
     case "UPDATE_NOTE":
       const { id } = action.payload;

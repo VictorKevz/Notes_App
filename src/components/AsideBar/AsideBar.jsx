@@ -10,10 +10,10 @@ function AsideBar() {
   const { notes, dispatchNotes } = useContext(DataContext);
 
   const headerLinks = [
-    { id: "allNotes", text: "All Notes", icon: HomeOutlined },
-    { id: "archivedNotes", text: "Archived Notes", icon: ArchiveOutlined },
-    { id: "tags", text: "Tags", icon: LocalOfferOutlined },
-    { id: "settingsTab", text: "Settings", icon: Settings },
+    { id: "allNotes", url:"/", text: "All Notes", icon: HomeOutlined },
+    { id: "archivedNotes", url:"/archivedNotes", text: "Archived Notes", icon: ArchiveOutlined },
+    { id: "tags", url:"/tags", text: "Tags", icon: LocalOfferOutlined },
+    { id: "settingsTab", url:"/settingsTab", text: "Settings", icon: Settings },
   ];
   return (
     <aside className="aside-wrapper mobile">
@@ -30,6 +30,8 @@ function AsideBar() {
         <ul className="links-wrapper mobile">
           <TabNav data={headerLinks} tabKey="asideCurrentTab" />
           {/* <li className="tags-list-item"> 
+          <TagList />
+
           </li> */}
         </ul>
       </nav>

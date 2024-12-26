@@ -21,6 +21,8 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 import TagList from "../TagList";
+import { Routes,Route } from "react-router-dom";
+import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
   const { notes, dispatchNotes, searchResults } = useContext(DataContext);
@@ -77,20 +79,20 @@ function Board() {
   const isAll = notes.asideCurrentTab === "allNotes";
   function getComponent() {
     if (isSettings) return <SettingsPage />;
-  
+
     if (isTags) {
       if (!notes.currentTag) return <TagList />;
       if (notes.showDetailed) return <DetailedNote />;
       return <NoteCards data={searchResults} />;
     }
-  if(isArchived){
-    if (notes.showDetailed) return <DetailedNote />;
-    return <NoteCards data={searchResults} />; 
-  }
-  if(isAll){
-    if (notes.showDetailed) return <DetailedNote />;
-    return <NoteCards data={searchResults} />; 
-  }
+    if (isArchived) {
+      if (notes.showDetailed) return <DetailedNote />;
+      return <NoteCards data={searchResults} />;
+    }
+    if (isAll) {
+      if (notes.showDetailed) return <DetailedNote />;
+      return <NoteCards data={searchResults} />;
+    }
     // if (notes.showDetailed) return <DetailedNote />;
     if (notes.showForm) return <NoteForm />;
     return <NoteCards data={searchResults} />;
@@ -149,22 +151,22 @@ function Board() {
           <img src={logo} alt="Notes App logo" className="logo" />
         </header>
         <div className="notes-wrapper">
-          {!notes.showDetailed && <h1 className="main-title">{getTitle()}</h1>}
-          {notes.showDetailed && (
-            <div className="detailed-mobile-actions-container">
-              <button
-                type="button"
-                onClick={() => dispatchNotes({ type: "TOGGLE_DETAILS_PAGE" })}
-              >
-                <KeyboardArrowLeft /> Go Back
-              </button>
-              <div className="detailed-delete-archive">
-                <Button data={deleteData} />
-                <Button data={archiveData} />
-              </div>
-            </div>
-          )}
-          {getComponent()}
+        <h1 className="main-title">{getTitle()}</h1>
+
+          <Routes>
+
+            <Route
+              path="/"
+              element={<NoteCards data={searchResults} />}
+            />
+            <Route
+              path="/archivedNotes"
+              element={<NoteCards data={searchResults} />}
+            />
+            <Route path="/tags" element={<TagList />} />
+            <Route path={`/filteredTags`} element={<NoteCards data={searchResults}/>} />
+            <Route path="/settingsTab" element={<SettingsPage />} />
+          </Routes>
         </div>
 
         <AsideBar />

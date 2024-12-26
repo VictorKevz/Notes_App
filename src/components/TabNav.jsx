@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { DataContext } from "../App";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
 function TabNav({ data, tabKey }) {
   const { notes, dispatchNotes } = useContext(DataContext);
@@ -10,8 +11,8 @@ function TabNav({ data, tabKey }) {
         const isCurrent = link.id === notes[tabKey];
         return (
           <li key={link.id} className="link-item mobile">
-            <button
-              type="button"
+            <NavLink
+              // type="button"
               className={`btn ${isCurrent && "current-link"}`}
               onClick={() => {
                 dispatchNotes({
@@ -19,6 +20,7 @@ function TabNav({ data, tabKey }) {
                   payload: { tab: link.id, key: tabKey },
                 });
               }}
+              to={`${link.url}`}
             >
               <span className="btn-text">
                 <link.icon
@@ -27,7 +29,7 @@ function TabNav({ data, tabKey }) {
                 <span className="nav-text mobile">{link.text}</span>
               </span>
               {isCurrent && <KeyboardArrowRight className="arrow mobile"/>}
-            </button>
+            </NavLink>
           </li>
         );
       })}
