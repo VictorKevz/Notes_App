@@ -52,6 +52,7 @@ function DetailedNote() {
         title: editForm.title,
         tags: editForm.tags.split(",").map((tag) => tag.trim()),
         content: editForm.content,
+        lastEdited: new Date().toISOString(),
       },
     });
     updateFields(field);
@@ -64,6 +65,7 @@ function DetailedNote() {
   });
   return (
     <div className="detailed-note-container">
+ 
       <header className="detailed-note-header">
         {editFields.includes("title") ? (
           <fieldset className="note-field edit">

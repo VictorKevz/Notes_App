@@ -24,6 +24,7 @@ function TagList() {
                   payload: { tab: "tags", key: "asideCurrentTab" },
                 });
                 dispatchNotes({ type: "UPDATE_TAG", payload: { tag } });
+                dispatchNotes({ type: "TOGGLE_DETAILS_PAGE" });
               }}
             >
               <span className="btn-text">

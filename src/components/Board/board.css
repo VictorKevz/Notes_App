@@ -3,21 +3,25 @@
   width: 100%;
   position: relative;
   display: flex;
-  /* flex-direction: column; */
   align-items: flex-start;
+  justify-content: center;
   min-height: 900px;
   position: relative;
   border: 1px solid var(--neutral-200);
-  border-radius: 1.2rem;
   z-index: 5;
 }
-
+.aside {
+  max-width: 272px;
+  width: 100%;
+}
 .content-wrapper {
   max-width: 1168px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-left: 1px solid var(--neutral-100);
 }
+
 .content-header {
   width: 100%;
   min-height: 81px;
@@ -27,11 +31,11 @@
   border-bottom: 1px solid var(--neutral-200);
   padding: 0 3.2rem;
 }
-.main-title{
-    font-size: 2.4rem;
-    font-weight: bold;
-    letter-spacing: -.5px;
-    line-height: 120%;
+.main-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  line-height: 120%;
 }
 /* SEARCH BAR STYLING */
 .search-settings-wrapper {
@@ -54,9 +58,10 @@
   padding-left: 1.6rem;
   border: 1px solid var(--neutral-200);
   gap: 0.8rem;
-  border-radius: .8rem;
+  border-radius: 0.8rem;
 }
-.field:focus-within,.field:hover {
+.field:focus-within,
+.field:hover {
   border-color: var(--blue-500);
   cursor: pointer;
 }
@@ -64,26 +69,22 @@
   outline: none;
   border-color: var(--blue-500);
   cursor: pointer;
-
 }
-.settings-btn{
-    color: var(--neutral-500);
-    transition: .3s ease-in-out;
-
+.settings-btn {
+  color: var(--neutral-500);
+  transition: 0.3s ease-in-out;
 }
-.active-settings-btn{
-    height: 4.4rem;
-    width: 5.4rem;
-    background-color: var(--neutral-100);
-    border-radius: .6rem;
-    color: var(--blue-500);
-    transition: .3s ease-in-out;
-
+.active-settings-btn {
+  height: 4.4rem;
+  width: 5.4rem;
+  background-color: var(--neutral-100);
+  border-radius: 0.6rem;
+  color: var(--blue-500);
+  transition: 0.3s ease-in-out;
 }
-.settings-icon{
-    font-size: 2.4rem!important;
-    transition: .3s ease-in-out;
-
+.settings-icon {
+  font-size: 2.4rem !important;
+  transition: 0.3s ease-in-out;
 }
 .notes-detailed-wrapper {
   width: 100%;
@@ -104,11 +105,11 @@
   height: 4.1rem;
   width: 100%;
   background-color: var(--blue-500);
-  border-radius: .8rem;
   margin-bottom: 1.6rem;
   color: var(--neutral-0);
   font-size: 1.4rem;
   font-weight: 400;
+  justify-content: center !important;
 }
 .detailed-notes-wrapper {
   max-width: 588px;
@@ -133,6 +134,7 @@
   border: 1px solid var(--neutral-200);
   gap: 0.8rem;
   border-radius: 0.8rem;
+  min-width: max-content;
 }
 /* NOTE CARDS STYLING */
 .notes-list,
@@ -148,12 +150,12 @@
 }
 .note-card:not(.current-note, :last-child) {
   border-bottom: 1px solid var(--neutral-200);
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
 }
-.note-title{
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: -0.3px;
+.note-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
 .current-note {
@@ -163,85 +165,98 @@
 .card-tag-list {
   display: flex;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
   margin-top: 1.2rem;
 }
-.card-tag-item{
-    padding: .2rem .6rem;
+.card-tag-item {
+  padding: 0.2rem 0.6rem;
+  background-color: var(--neutral-200);
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+}
+.card-date {
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.tablet-mobile-board,
+.links-wrapper.mobile {
+  display: none;
+}
+/* TABLET/MOBILE STYLES */
+@media (max-width: 1200px) {
+  .desktop {
+    display: none !important;
+  }
+  .board-wrapper.mobile {
+    min-height: 100vh !important;
+    border: none;
+  }
+  .links-wrapper.mobile {
+    display: flex;
+  }
+  .tablet-mobile-board {
+    display: flex;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .aside-header.mobile {
+    width: 100%;
     background-color: var(--neutral-200);
-    border-radius: .4rem;
-    font-size: 1.2rem;
-}
-.card-date{
-    margin-top: 1.2rem;
-    font-size: 1.2rem;
-    font-weight: normal;
+    padding: 2rem 3.2rem;
+    display: flex;
+  }
+  .aside-wrapper.mobile {
+    border: none;
+    max-width: 100% !important;
+    flex-direction: row;
+    align-items: center;
+    min-height: 0 !important;
+    border-top: 1px solid var(--neutral-100);
+  }
+  .aside-nav.mobile {
+    max-width: 100% !important;
+  }
+  .links-wrapper.mobile {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .link-item.mobile {
+    width: fit-content;
+  }
+  /* .nav-text.mobile {
+    display: none;
+  } */
+  .arrow.mobile {
+    display: none;
+  }
+  .notes-wrapper {
+    border-radius: 1.2rem 1.2rem 0 0;
+    max-width: 100% !important;
+  }
+  .detailed-mobile-actions-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .detailed-delete-archive{
+    display: flex;
+    gap: 1.2rem;
+  }
+  /* .reusable-btn.mobile{
+border: none;
+  } */
 }
 
-
-
-
-/* MODAL STYLING */
-.modal-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  background-color: rgba(39, 37, 37, 0.728);
-}
-.modal-container {
-  max-width: 440px;
-  width: 100%;
-  min-height: 175px;
-  background-color: var(--neutral-0);
-  border-radius: 1.2rem;
-  padding: 2rem 0 1.6rem 0;
-}
-.modal-header {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 1.6rem;
-  padding: 0 2rem 2rem 2rem;
-  border-bottom: 1px solid var(--neutral-100);
-}
-.modal-icon-wrapper {
-  min-height: 4rem;
-  min-width: 4rem;
-  background-color: var(--neutral-100);
-  border-radius: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--neutral-950);
-}
-.modal-cta {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 1.6rem 2rem 0 2rem;
-  gap: 1.6rem;
-}
-.modal-btn {
-  height: 4.1rem;
-  width: fit-content;
-  padding: 0 1.6rem;
-  background-color: var(--neutral-100);
-  border-radius: 0.8rem;
-  color: var(--neutral-600);
-}
-.delete {
-  background-color: var(--red-500);
-  color: var(--neutral-0);
-}
-.archive {
-  background-color: var(--blue-500);
-  color: var(--neutral-0);
-}
+/* .aside-nav.mobile,.link-item,.links-wrapper.mobile{
+width: 100%;
+max-width: 100%!important;
+flex-direction: row;
+justify-content: space-between;
+background-color: aqua;
+} */

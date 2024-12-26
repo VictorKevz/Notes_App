@@ -6,10 +6,9 @@
   align-items: flex-start;
 }
 .aside-wrapper {
-  max-width: 272px;
+  
   padding: 1.2rem 1.6rem;
   min-height: 900px;
-  border-right: 1px solid var(--neutral-200);
 }
 .aside-nav {
   margin-top: 1.6rem;
@@ -35,6 +34,8 @@
   gap: .8rem;
   font-size: 1.4rem;
   font-weight: normal;
+  min-width: max-content;
+
 }
 .current-link{
   background-color: var(--neutral-100);
@@ -73,3 +74,7 @@ font-size: 1.6rem;
     color: white;
 
 }
+
+/* .links-wrapper.desktop,.content-wrapper.desktop,.aside-desktop{
+display: none;
+} */

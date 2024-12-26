@@ -1,19 +1,25 @@
-.outer-container{
+.outer-container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: var(--neutral-0);
-position: relative;
+  position: relative;
   color: var(--neutral-950);
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   z-index: 5;
-
+  /* padding: 0 2.4rem; */
 }
 
-.dark-body-bg{
+.dark-body-bg {
   background-color: var(--neutral-950);
   color: var(--neutral-0);
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+@media (width > 1500px) {
+.board-wrapper {
+  border-radius: 1.2rem;
+}
+  
 }

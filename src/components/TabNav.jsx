@@ -9,7 +9,7 @@ function TabNav({ data, tabKey }) {
       {data.map((link) => {
         const isCurrent = link.id === notes[tabKey];
         return (
-          <li key={link.id} className="link-item">
+          <li key={link.id} className="link-item mobile">
             <button
               type="button"
               className={`btn ${isCurrent && "current-link"}`}
@@ -24,9 +24,9 @@ function TabNav({ data, tabKey }) {
                 <link.icon
                   className={`link-icon ${isCurrent && "current-icon"}`}
                 />
-                {link.text}
+                <span className="nav-text mobile">{link.text}</span>
               </span>
-              {isCurrent && <KeyboardArrowRight />}
+              {isCurrent && <KeyboardArrowRight className="arrow mobile"/>}
             </button>
           </li>
         );

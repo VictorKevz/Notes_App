@@ -4,10 +4,14 @@ import AsideBar from "../AsideBar/AsideBar";
 import {
   Add,
   ArchiveOutlined,
+  ArrowBack,
   DeleteOutlineOutlined,
+  KeyboardArrowLeft,
   RestartAltOutlined,
   Settings,
 } from "@mui/icons-material";
+import logo from "../../assets/images/logo.svg";
+
 import NoteCards from "../NoteCards";
 import { DataContext } from "../../App";
 import DetailedNote from "../DetailedNote/DetailedNote";
@@ -16,28 +20,27 @@ import SettingsPage from "../Settings/SettingsPage";
 import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
+import TagList from "../TagList";
 
 function Board() {
-  const { notes, dispatchNotes, searchResults } =
-    useContext(DataContext);
+  const { notes, dispatchNotes, searchResults } = useContext(DataContext);
 
-
-const getTitle = () => {
-  let title;
-  if(notes.asideCurrentTab === "allNotes"){
-    title = "All Notes"
-  }
-  if(notes.asideCurrentTab === "archivedNotes"){
-    title = "Archived Notes"
-  }
-  if(notes.asideCurrentTab === "tags"){
-    title = `Notes Tagged: ${notes.currentTag}`
-  }
-  if(notes.asideCurrentTab === "settingsTab"){
-    title = "Settings"
-  }
-  return title;
-}
+  const getTitle = () => {
+    let title;
+    if (notes.asideCurrentTab === "allNotes") {
+      title = "All Notes";
+    }
+    if (notes.asideCurrentTab === "archivedNotes") {
+      title = "Archived Notes";
+    }
+    if (notes.asideCurrentTab === "tags") {
+      title = `Notes Tagged: ${notes.currentTag}`;
+    }
+    if (notes.asideCurrentTab === "settingsTab") {
+      title = "Settings";
+    }
+    return title;
+  };
 
   const archiveData = {
     text:
@@ -48,7 +51,7 @@ const getTitle = () => {
       notes.asideCurrentTab !== "archivedNotes"
         ? ArchiveOutlined
         : RestartAltOutlined,
-    typeText: "ARCHIVE_NOTE",
+    actionType: "ARCHIVE_NOTE",
 
     parag:
       notes.asideCurrentTab !== "archivedNotes"
@@ -58,15 +61,47 @@ const getTitle = () => {
   const deleteData = {
     text: "Delete Note",
     icon: DeleteOutlineOutlined,
-    typeText: "DELETE_NOTE",
+    actionType: "DELETE_NOTE",
     parag:
       "Are you sure you want to delete this note? This action cannot be undone.",
   };
-  const isSettings = notes.asideCurrentTab === "settingsTab"
+  const newNoteData = {
+    text: "Create New Note",
+    icon: Add,
+    actionType: "SHOW_FORM",
+    parag: "",
+  };
+  const isSettings = notes.asideCurrentTab === "settingsTab";
+  const isTags = notes.asideCurrentTab === "tags";
+  const isArchived = notes.asideCurrentTab === "archivedNotes";
+  const isAll = notes.asideCurrentTab === "allNotes";
+  function getComponent() {
+    if (isSettings) return <SettingsPage />;
+  
+    if (isTags) {
+      if (!notes.currentTag) return <TagList />;
+      if (notes.showDetailed) return <DetailedNote />;
+      return <NoteCards data={searchResults} />;
+    }
+  if(isArchived){
+    if (notes.showDetailed) return <DetailedNote />;
+    return <NoteCards data={searchResults} />; 
+  }
+  if(isAll){
+    if (notes.showDetailed) return <DetailedNote />;
+    return <NoteCards data={searchResults} />; 
+  }
+    // if (notes.showDetailed) return <DetailedNote />;
+    if (notes.showForm) return <NoteForm />;
+    return <NoteCards data={searchResults} />;
+  }
   return (
-    <div className="board-wrapper">
-      <AsideBar />
-      <section className="content-wrapper">
+    <div className="board-wrapper mobile">
+      <div className="aside desktop">
+        <AsideBar />
+      </div>
+
+      <section className="content-wrapper desktop">
         <header className="content-header">
           <h1 className="main-title">{getTitle()}</h1>
           <div className="search-settings-wrapper">
@@ -86,27 +121,17 @@ const getTitle = () => {
           </div>
         </header>
 
-        {notes.asideCurrentTab === "settingsTab" ? (
+        {isSettings ? (
           <SettingsPage />
         ) : (
           <div className="notes-detailed-wrapper">
             <div className="notes-wrapper">
-              <button
-                type="button"
-                className="add-note-btn"
-                onClick={() => dispatchNotes({ type: "SHOW_FORM" })}
-              >
-                <Add /> Create New Note
-              </button>
+              <Button data={newNoteData} />
               <NoteCards data={searchResults} />
             </div>
 
             <div className="detailed-notes-wrapper">
-              {notes.showForm ? (
-                <NoteForm />
-              ) : (
-                <DetailedNote />
-              )}
+              {notes.showForm ? <NoteForm /> : <DetailedNote />}
             </div>
             {!notes.showForm && (
               <div className="btn-actions-wrapper">
@@ -117,6 +142,32 @@ const getTitle = () => {
             )}
           </div>
         )}
+      </section>
+
+      <section className="tablet-mobile-board">
+        <header className="aside-header mobile">
+          <img src={logo} alt="Notes App logo" className="logo" />
+        </header>
+        <div className="notes-wrapper">
+          {!notes.showDetailed && <h1 className="main-title">{getTitle()}</h1>}
+          {notes.showDetailed && (
+            <div className="detailed-mobile-actions-container">
+              <button
+                type="button"
+                onClick={() => dispatchNotes({ type: "TOGGLE_DETAILS_PAGE" })}
+              >
+                <KeyboardArrowLeft /> Go Back
+              </button>
+              <div className="detailed-delete-archive">
+                <Button data={deleteData} />
+                <Button data={archiveData} />
+              </div>
+            </div>
+          )}
+          {getComponent()}
+        </div>
+
+        <AsideBar />
       </section>
       {notes.warningModal && <WarningModal />}
     </div>

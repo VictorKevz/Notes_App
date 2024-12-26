@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
 import { DataContext } from "../App";
 
-function NoteCards({ data}) {
+function NoteCards({ data }) {
   const { notes, dispatchNotes } = useContext(DataContext);
 
-  
   return (
     <article className="notes-list">
       {data?.map((note) => {
         const isCurrent = notes?.currentNoteId === note.id;
         const lastEdited = note?.lastEdited;
-  const formattedDate = new Date(lastEdited).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+        const formattedDate = new Date(lastEdited).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
         return (
           <div
             key={note.id}
@@ -22,7 +21,7 @@ function NoteCards({ data}) {
             role="button"
             tabIndex={0}
             onClick={() => {
-              dispatchNotes({type:"UPDATE_NOTE",payload:{id:note?.id}})
+              dispatchNotes({ type: "UPDATE_NOTE", payload: { id: note?.id } });
             }}
           >
             <h3 className="note-title">{note?.title}</h3>

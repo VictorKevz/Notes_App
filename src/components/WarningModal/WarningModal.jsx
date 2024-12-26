@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
-
+import "./modal.css"
 function WarningModal() {
   const { dispatchNotes, notes } = useContext(DataContext);
   const{ typeText, parag, modalTitle } = notes.modalData

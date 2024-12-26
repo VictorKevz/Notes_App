@@ -11,6 +11,8 @@ function NoteForm() {
     content: validContent,
   } = notes.isValid;
 
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatchNotes({ type: "UPDATE_FORM", payload: { name, value } });
@@ -24,6 +26,7 @@ function NoteForm() {
           title,
           tags: tags.split(",").map((tag) => tag.trim()),
           content,
+          lastEdited: new Date().toISOString(),
         },
       });
     } else {
@@ -102,8 +105,9 @@ function NoteForm() {
           className="textarea-input"
           placeholder="Start typing your note here…"
         />
-                {!validContent && <span className="error-message">Provide valid content!</span>}
-
+        {!validContent && (
+          <span className="error-message">Provide valid content!</span>
+        )}
       </fieldset>
       <fieldset className="form-btn-wrapper">
         <button type="submit" className="form-btn save">

@@ -16,18 +16,21 @@ const notesReducer = (state, action) => {
         [key]: tab,
         currentTag: "",
         showForm: false,
+        showDetailed:false
       };
     case "UPDATE_TAG":
       const { tag } = action.payload;
       return {
         ...state,
         currentTag: tag,
+        showDetailed:true
       };
     case "UPDATE_NOTE":
       const { id } = action.payload;
       return {
         ...state,
         currentNoteId: id,
+        showDetailed:true
       };
     case "OPEN_MODAL":
       const { modalId, icon, typeText, parag, modalTitle } = action.payload;
@@ -101,11 +104,11 @@ const notesReducer = (state, action) => {
         },
       };
     case "CREATE_NOTE":
-      const { title, tags, content } = action.payload;
+      const { title, tags, content,lastEdited } = action.payload;
       return {
         ...state,
         notesData: [
-          { id: uuid(), title, tags, content, isArchived: false },
+          { id: uuid(), title, tags,lastEdited, content, isArchived: false },
           ...state.notesData,
         ],
         showForm: false,
@@ -121,7 +124,7 @@ const notesReducer = (state, action) => {
         },
       };
     case "EDIT_NOTE":
-      const { editNoteId, title:editTitle,tags:editTags,content:editContent } = action.payload;
+      const { editNoteId, title:editTitle,tags:editTags,content:editContent,lastEdited:newData } = action.payload;
       return {
         ...state,
         notesData: state.notesData.map((note) =>
@@ -130,13 +133,19 @@ const notesReducer = (state, action) => {
                 ...note,
                 title:editTitle,
                 tags:editTags,
-                content:editContent
+                content:editContent,
+                lastEdited:newData
 
               }
             : note
         ),
         currentNoteId:editNoteId
       };
+      case "TOGGLE_DETAILS_PAGE":
+        return{
+          ...state,
+          showDetailed:false
+        }
     default:
       return state;
   }
@@ -157,6 +166,7 @@ function App() {
     currentTag: "",
     settingsCurrentTab: "colorTheme",
     warningModal: false,
+    showDetailed:false,
     modalData: {},
     fontTheme: JSON.parse(localStorage.getItem("fontTheme")) || "'Inter', serif",
     colorTheme: JSON.parse(localStorage.getItem("colorTheme")) || "lightMode",
@@ -165,6 +175,7 @@ function App() {
       title: "",
       tags: "",
       content: "",
+      lastEdited:""
     },
     isValid: {
       title: true,
