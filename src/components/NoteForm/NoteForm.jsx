@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { DataContext } from "../../App";
 import { AccessTimeOutlined, SellOutlined } from "@mui/icons-material";
 import "./noteForm.css";
+import { Link, useNavigate } from "react-router-dom";
+import { nav } from "framer-motion/client";
 function NoteForm() {
-  const { notes, dispatchNotes } = useContext(DataContext);
+  const { notes, dispatchNotes,isTablet } = useContext(DataContext);
   const { title, tags, content } = notes.form;
   const {
     title: validTitle,
@@ -11,7 +13,7 @@ function NoteForm() {
     content: validContent,
   } = notes.isValid;
 
-  
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +34,7 @@ function NoteForm() {
     } else {
       return;
     }
+    navigate("/");
   };
 
   const validateForm = () => {
@@ -53,7 +56,7 @@ function NoteForm() {
     return isValid;
   };
   return (
-    <form className="note-form" onSubmit={handleSubmit}>
+    <form className="note-form" >
       <fieldset className="note-form-field">
         <label htmlFor="title" className="title-label">
           <input
@@ -109,8 +112,35 @@ function NoteForm() {
           <span className="error-message">Provide valid content!</span>
         )}
       </fieldset>
-      <fieldset className="form-btn-wrapper">
-        <button type="submit" className="form-btn save">
+      <>
+      {isTablet ? (
+       <fieldset className="form-btn-wrapper">
+       
+       <Link  
+       className="form-btn save"
+       onClick={handleSubmit}
+       to="/"
+       >
+         Save Note
+       </Link>
+       <Link
+         type="button"
+         className="form-btn cancel"
+         onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
+         to="/"
+       >
+         
+         Cancel
+       </Link>
+     </fieldset> 
+      ) : (
+        <fieldset className="form-btn-wrapper">
+       
+        <button 
+        type="button" 
+        className="form-btn save"
+        onClick={handleSubmit}
+        >
           Save Note
         </button>
         <button
@@ -118,9 +148,12 @@ function NoteForm() {
           className="form-btn cancel"
           onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
         >
+          
           Cancel
         </button>
       </fieldset>
+      )}
+      </>
     </form>
   );
 }

@@ -13,7 +13,7 @@ function TabNav({ data, tabKey }) {
           <li key={link.id} className="link-item mobile">
             <NavLink
               // type="button"
-              className={`btn ${isCurrent && "current-link"}`}
+              className={`btn  ${isCurrent && "current-link"}`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",
@@ -22,7 +22,7 @@ function TabNav({ data, tabKey }) {
               }}
               to={tabKey ==="settingsCurrentTab" ? undefined : link.url}
             >
-              <span className="btn-text">
+              <span className={`btn-text ${tabKey !=="settingsCurrentTab" && "mobile"}`}>
                 <link.icon
                   className={`link-icon ${isCurrent && "current-icon"}`}
                 />

@@ -13,8 +13,8 @@ function AsideBar() {
     { id: "allNotes", url:"/", text: "All Notes", icon: HomeOutlined },
     { id: "archivedNotes", url:"/archivedNotes", text: "Archived Notes", icon: ArchiveOutlined },
     { id: "tags", url:"/tags", text: "Tags", icon: LocalOfferOutlined },
-    { id: "settingsTab", url:"/settingsTab", text: "Settings", icon: Settings },
     { id: "searchTab", url:"/searchTab", text: "Search", icon: Search },
+    { id: "settingsTab", url:"/settingsTab", text: "Settings", icon: Settings },
   ];
   return (
     <aside className="aside-wrapper mobile">

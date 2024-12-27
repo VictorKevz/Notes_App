@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./board.css";
 import AsideBar from "../AsideBar/AsideBar";
 import {
@@ -21,11 +21,12 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 import TagList from "../TagList";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 // import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
-  const { notes, dispatchNotes, searchResults } = useContext(DataContext);
+  const { notes, dispatchNotes, searchResults, setIsTablet,isTablet } =
+    useContext(DataContext);
 
   const getTitle = () => {
     let title;
@@ -70,33 +71,16 @@ function Board() {
   const newNoteData = {
     text: "Create New Note",
     icon: Add,
-    actionType: "SHOW_FORM",
+    actionType:"SHOW_FORM",
     parag: "",
   };
   const isSettings = notes.asideCurrentTab === "settingsTab";
-  const isTags = notes.asideCurrentTab === "tags";
-  const isArchived = notes.asideCurrentTab === "archivedNotes";
-  const isAll = notes.asideCurrentTab === "allNotes";
-  function getComponent() {
-    if (isSettings) return <SettingsPage />;
-
-    if (isTags) {
-      if (!notes.currentTag) return <TagList />;
-      if (notes.showDetailed) return <DetailedNote />;
-      return <NoteCards data={searchResults} />;
-    }
-    if (isArchived) {
-      if (notes.showDetailed) return <DetailedNote />;
-      return <NoteCards data={searchResults} />;
-    }
-    if (isAll) {
-      if (notes.showDetailed) return <DetailedNote />;
-      return <NoteCards data={searchResults} />;
-    }
-    // if (notes.showDetailed) return <DetailedNote />;
-    if (notes.showForm) return <NoteForm />;
-    return <NoteCards data={searchResults} />;
-  }
+  
+  useEffect(() => {
+    const handleResize = () => setIsTablet(window.innerWidth <= 1200);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div className="board-wrapper mobile">
       <div className="aside desktop">
@@ -151,8 +135,11 @@ function Board() {
           <img src={logo} alt="Notes App logo" className="logo" />
         </header>
         <div className="notes-wrapper">
-          <h1 className="main-title">{getTitle()}</h1>
-
+{notes.asideCurrentTab !== "settingsTab" && isTablet && !notes.showForm && (
+  <div className="mobile-newNote">
+    <Button data={newNoteData} />
+  </div>
+)}
           <Routes>
             <Route path="/" element={<NoteCards data={searchResults} />} />
             <Route
@@ -165,6 +152,27 @@ function Board() {
               element={<NoteCards data={searchResults} />}
             />
             <Route path={`/searchTab`} element={<SearchBar />} />
+            <Route
+              path={`/details`}
+              element={
+                <div className="detailed-mobile-wrapper">
+                  <div className="detailed-mobile-actions-container">
+                    <Link
+                      to={`${notes.asideCurrentTab ==="allNotes" ? "/" : `/${notes.asideCurrentTab}`}`}
+                    >
+                      <KeyboardArrowLeft /> Go Back
+                    </Link>
+                    <div className="detailed-delete-archive">
+                      <Button data={deleteData} />
+                      <Button data={archiveData} />
+                    </div>
+                    
+                  </div>
+                  <DetailedNote />
+                </div>
+              }
+            />
+            <Route path="/newNote" element={<NoteForm />} />
             <Route path="/settingsTab" element={<SettingsPage />} />
           </Routes>
         </div>

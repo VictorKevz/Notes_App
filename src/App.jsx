@@ -186,6 +186,7 @@ function App() {
   const [notes, dispatchNotes] = useReducer(notesReducer, initialData);
 
   const [query, setQuery] = useState("");
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 1200);
 
   const filteredData = notes?.notesData?.filter((note) => {
     if (notes?.asideCurrentTab === "archivedNotes") {
@@ -233,6 +234,8 @@ function App() {
         query,
         setQuery,
         isDark,
+        isTablet, 
+        setIsTablet
       }}
     >
       <main
