@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { DataContext } from "../App";
+import { DataContext } from "../../App";
 import { NavLink, Link } from "react-router-dom";
 import { KeyboardArrowLeft } from "@mui/icons-material";
-
+import "./noteCards.css";
 function NoteCards({ data }) {
   const { notes, dispatchNotes, isTablet } = useContext(DataContext);
   const getTitle = () => {
@@ -23,7 +23,7 @@ function NoteCards({ data }) {
     <article className="notes-list">
       {isTablet && notes.asideCurrentTab === "tags" && notes.asideCurrentTab === "searchTab" && (
         <div className="tag-actions-wrapper">
-          <Link to="/tags">
+          <Link to="/tags" className="go-back-link">
             <KeyboardArrowLeft /> Go Back
           </Link>
           <h2 className="tags-current">Notes Tagged : {notes?.currentTag}</h2>
@@ -44,7 +44,9 @@ function NoteCards({ data }) {
           year: "numeric",
         });
         return (
-          <NavLink
+          <React.Fragment key={note.id}>
+          {isTablet ? (
+            <NavLink
             key={note.id}
             className={`note-card ${isCurrent && "current-note"}`}
             role="button"
@@ -52,7 +54,7 @@ function NoteCards({ data }) {
             onClick={() => {
               dispatchNotes({ type: "UPDATE_NOTE", payload: { id: note?.id } });
             }}
-            to={`${isTablet ? "/details" : undefined}`}
+            to="/details"
           >
             <h3 className="note-title">{note?.title}</h3>
             <ul className="card-tag-list">
@@ -64,6 +66,27 @@ function NoteCards({ data }) {
             </ul>
             <p className="card-date">{formattedDate}</p>
           </NavLink>
+          ):(
+            <div
+            className={`note-card ${isCurrent && "current-note"}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              dispatchNotes({ type: "UPDATE_NOTE", payload: { id: note?.id } });
+            }}
+          >
+            <h3 className="note-title">{note?.title}</h3>
+            <ul className="card-tag-list">
+              {note?.tags?.map((tag, i) => (
+                <li key={i} className="card-tag-item">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            <p className="card-date">{formattedDate}</p>
+          </div>
+          )}
+          </React.Fragment>
         );
       })}
     </article>

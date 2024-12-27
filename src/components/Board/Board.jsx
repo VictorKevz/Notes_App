@@ -12,7 +12,7 @@ import {
 } from "@mui/icons-material";
 import logo from "../../assets/images/logo.svg";
 
-import NoteCards from "../NoteCards";
+import NoteCards from "../NoteCard/NoteCards";
 import { DataContext } from "../../App";
 import DetailedNote from "../DetailedNote/DetailedNote";
 import SearchBar from "../SearchBar";
@@ -25,7 +25,7 @@ import { Routes, Route, Link } from "react-router-dom";
 // import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
-  const { notes, dispatchNotes, searchResults, setIsTablet,isTablet } =
+  const { notes, dispatchNotes, searchResults, setIsTablet, isTablet } =
     useContext(DataContext);
 
   const getTitle = () => {
@@ -71,11 +71,11 @@ function Board() {
   const newNoteData = {
     text: "Create New Note",
     icon: Add,
-    actionType:"SHOW_FORM",
+    actionType: "SHOW_FORM",
     parag: "",
   };
   const isSettings = notes.asideCurrentTab === "settingsTab";
-  
+
   useEffect(() => {
     const handleResize = () => setIsTablet(window.innerWidth <= 1200);
     window.addEventListener("resize", handleResize);
@@ -135,11 +135,13 @@ function Board() {
           <img src={logo} alt="Notes App logo" className="logo" />
         </header>
         <div className="notes-wrapper">
-{notes.asideCurrentTab !== "settingsTab" && isTablet && !notes.showForm && (
-  <div className="mobile-newNote">
-    <Button data={newNoteData} />
-  </div>
-)}
+          {notes.asideCurrentTab !== "settingsTab" &&
+            isTablet &&
+            !notes.showForm && (
+              <div className="mobile-newNote">
+                <Button data={newNoteData} />
+              </div>
+            )}
           <Routes>
             <Route path="/" element={<NoteCards data={searchResults} />} />
             <Route
@@ -158,7 +160,12 @@ function Board() {
                 <div className="detailed-mobile-wrapper">
                   <div className="detailed-mobile-actions-container">
                     <Link
-                      to={`${notes.asideCurrentTab ==="allNotes" ? "/" : `/${notes.asideCurrentTab}`}`}
+                      to={`${
+                        notes.asideCurrentTab === "allNotes"
+                          ? "/"
+                          : `/${notes.asideCurrentTab}`
+                      }`}
+                      className="go-back-link"
                     >
                       <KeyboardArrowLeft /> Go Back
                     </Link>
@@ -166,7 +173,6 @@ function Board() {
                       <Button data={deleteData} />
                       <Button data={archiveData} />
                     </div>
-                    
                   </div>
                   <DetailedNote />
                 </div>

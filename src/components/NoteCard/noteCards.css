@@ -1,0 +1,43 @@
+/* NOTE CARDS STYLING */
+.notes-list,
+.note-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.note-card {
+  padding: 0.8rem;
+  /* gap: 1.2rem; */
+}
+.note-card:not(.current-note, :last-child) {
+  border-bottom: 1px solid var(--neutral-200);
+  margin-bottom: 0.4rem;
+}
+.note-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.current-note {
+  background-color: var(--neutral-100);
+  border-radius: 0.6rem;
+}
+.card-tag-list {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+}
+.card-tag-item {
+  padding: 0.2rem 0.6rem;
+  background-color: var(--neutral-200);
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+}
+.card-date {
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+}

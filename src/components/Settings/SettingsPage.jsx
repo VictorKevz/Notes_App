@@ -6,7 +6,7 @@ import "./settings.css"
 import { DataContext } from "../../App";
 
 function SettingsPage() {
-  const{notes} = useContext(DataContext)
+  const{notes,isTablet} = useContext(DataContext)
   const settingsData = [
     { id: "colorTheme", text: "Color Theme", icon: LightMode },
     { id: "fontTheme", text: "Font Theme", icon: TextFields },
@@ -17,11 +17,14 @@ function SettingsPage() {
   }, [notes?.fontTheme, notes?.colorTheme]);
   return (
     <div className="settings-wrapper">
+      {isTablet && <h1 className="main-title settings-title">Settings</h1>}
       <nav className="settings-nav">
         <ul className="settings-list">
           <TabNav data={settingsData} tabKey="settingsCurrentTab" />
         </ul>
+        
       </nav>
+      {isTablet && <div className="divider"></div>}
       <ThemeOptions/>
     </div>
   );

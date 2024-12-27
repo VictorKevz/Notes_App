@@ -28,9 +28,13 @@
 }
 .detailed-note-content{
   margin-top: 1.6rem;
+  
+  
 }
 .content-text{
   font-size: 1.4rem;
+  white-space: pre-wrap; 
+  word-wrap: break-word;
 }
 
 .detailed-time-edited{

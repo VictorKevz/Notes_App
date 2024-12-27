@@ -1,7 +1,7 @@
 import { SearchOutlined } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { DataContext } from "../App";
-import NoteCards from "./NoteCards";
+import NoteCards from "./NoteCard/NoteCards";
 
 function SearchBar() {
   const { query, setQuery, searchResults } = useContext(DataContext);
