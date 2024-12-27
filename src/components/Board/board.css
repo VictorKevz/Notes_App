@@ -46,6 +46,16 @@
   align-items: center;
   gap: 1.6rem;
 }
+.search-bar{
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.search-bar.mobile,.search-results{
+  width: 100%;
+  flex-direction: column;
+  gap: 1.6rem;
+}
 .field,
 .search-label,
 .search-input {
@@ -179,22 +189,21 @@
   font-size: 1.2rem;
   font-weight: normal;
 }
-/* DETAILED NOTE STYLING */
-.tag-link.mobile,
+.btn.mobile,
 .tablet-mobile-board,
-.links-wrapper.mobile {
+.links-wrapper.mobile,.search-results {
   display: none!important;
 }
 /* TABLET/MOBILE STYLES */
 @media (max-width: 1200px) {
-  .desktop {
+  .desktop,.aside.desktop {
     display: none !important;
   }
   .board-wrapper.mobile {
     min-height: 100vh !important;
     border: none;
   }
-  .links-wrapper.mobile,.tag-link.mobile,.tablet-mobile-board {
+  .btn.mobile,.links-wrapper.mobile,.tag-link.mobile,.tablet-mobile-board,.search-results {
     display: flex!important;
   }
   .tablet-mobile-board {
@@ -248,6 +257,14 @@
   .detailed-delete-archive{
     display: flex;
     gap: 1.2rem;
+  }
+  .current-note {
+    background-color: inherit!important;
+    border-radius: 0!important;
+  }
+  .note-card:not(:last-child) {
+    border-bottom: 1px solid var(--neutral-200)!important;
+    margin-bottom: 0.4rem!important;
   }
 
 }

@@ -21,8 +21,8 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 import TagList from "../TagList";
-import { Routes,Route } from "react-router-dom";
-import FilteredTagsPage from "../FilteredTags";
+import { Routes, Route } from "react-router-dom";
+// import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
   const { notes, dispatchNotes, searchResults } = useContext(DataContext);
@@ -151,20 +151,20 @@ function Board() {
           <img src={logo} alt="Notes App logo" className="logo" />
         </header>
         <div className="notes-wrapper">
-        <h1 className="main-title">{getTitle()}</h1>
+          <h1 className="main-title">{getTitle()}</h1>
 
           <Routes>
-
-            <Route
-              path="/"
-              element={<NoteCards data={searchResults} />}
-            />
+            <Route path="/" element={<NoteCards data={searchResults} />} />
             <Route
               path="/archivedNotes"
               element={<NoteCards data={searchResults} />}
             />
             <Route path="/tags" element={<TagList />} />
-            <Route path={`/filteredTags`} element={<NoteCards data={searchResults}/>} />
+            <Route
+              path={`/filteredTags`}
+              element={<NoteCards data={searchResults} />}
+            />
+            <Route path={`/searchTab`} element={<SearchBar />} />
             <Route path="/settingsTab" element={<SettingsPage />} />
           </Routes>
         </div>

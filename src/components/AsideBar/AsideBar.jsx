@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import logo from "../../assets/images/logo.svg";
-import { ArchiveOutlined, HomeOutlined, LocalOfferOutlined, Settings } from "@mui/icons-material";
+import { ArchiveOutlined, HomeOutlined, LocalOfferOutlined, Search, Settings } from "@mui/icons-material";
 import TagList from "../TagList";
 import "./asideBar.css";
 import { DataContext } from "../../App";
@@ -14,6 +14,7 @@ function AsideBar() {
     { id: "archivedNotes", url:"/archivedNotes", text: "Archived Notes", icon: ArchiveOutlined },
     { id: "tags", url:"/tags", text: "Tags", icon: LocalOfferOutlined },
     { id: "settingsTab", url:"/settingsTab", text: "Settings", icon: Settings },
+    { id: "searchTab", url:"/searchTab", text: "Search", icon: Search },
   ];
   return (
     <aside className="aside-wrapper mobile">

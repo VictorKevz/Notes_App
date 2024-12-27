@@ -20,7 +20,7 @@ function TabNav({ data, tabKey }) {
                   payload: { tab: link.id, key: tabKey },
                 });
               }}
-              to={`${link.url}`}
+              to={tabKey ==="settingsCurrentTab" ? undefined : link.url}
             >
               <span className="btn-text">
                 <link.icon
