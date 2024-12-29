@@ -4,36 +4,40 @@ import { NavLink, Link } from "react-router-dom";
 import { KeyboardArrowLeft } from "@mui/icons-material";
 import "./noteCards.css";
 function NoteCards({ data }) {
-  const { notes, dispatchNotes, isTablet } = useContext(DataContext);
-  const getTitle = () => {
-    let title;
-    if (notes.asideCurrentTab === "allNotes") {
-      title = "All Notes";
-    }
-    if (notes.asideCurrentTab === "archivedNotes") {
-      title = "Archived Notes";
-    }
+  const { notes, dispatchNotes, isTablet,getContent } = useContext(DataContext);
+  // const getTitle = () => {
+  //   let title;
+  //   if (notes.asideCurrentTab === "allNotes") {
+  //     title = "All Notes";
+  //   }
+  //   if (notes.asideCurrentTab === "archivedNotes") {
+  //     title = "Archived Notes";
+  //   }
     
-    if (notes.asideCurrentTab === "settingsTab") {
-      title = "Settings";
-    }
-    return title;
-  };
+  //   if (notes.asideCurrentTab === "settingsTab") {
+  //     title = "Settings";
+  //   }
+  //   return title;
+  // };
   return (
     <article className="notes-list">
-      {isTablet && notes.asideCurrentTab === "tags" && notes.asideCurrentTab === "searchTab" && (
+      {isTablet && notes.asideCurrentTab !== "searchTab" && notes.asideCurrentTab === "tags" &&(
         <div className="tag-actions-wrapper">
-          <Link to="/tags" className="go-back-link">
+          <Link to="/tags" className="go-back-link tags">
             <KeyboardArrowLeft /> Go Back
           </Link>
-          <h2 className="tags-current">Notes Tagged : {notes?.currentTag}</h2>
-          <p className="tag-caption">
+          <h2 className="main-title">Notes Tagged : {notes?.currentTag}</h2>
+          <p className="main-paragraph">
             All notes with the '{notes?.currentTag}' tag are shown here.
           </p>
         </div>
       )}
       {isTablet && notes.asideCurrentTab !== "tags" && (
-        <h1 className="main-title">{getTitle()}</h1>
+       <>
+        <h1 className="main-title">{getContent().title}</h1>
+        <p className="main-paragraph">{getContent().parag}</p>
+       </>
+
       )}
       {data?.map((note) => {
         const isCurrent = notes?.currentNoteId === note.id;

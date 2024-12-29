@@ -21,28 +21,32 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 import TagList from "../TagList";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
 // import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
-  const { notes, dispatchNotes, searchResults, setIsTablet, isTablet } =
+  const { notes, dispatchNotes, searchResults, setIsTablet, isTablet,getContent } =
     useContext(DataContext);
 
   const getTitle = () => {
     let title;
+    let parag;
     if (notes.asideCurrentTab === "allNotes") {
       title = "All Notes";
     }
     if (notes.asideCurrentTab === "archivedNotes") {
       title = "Archived Notes";
+      parag="All your archived notes are stored here. You can restore or delete them anytime."
     }
     if (notes.asideCurrentTab === "tags") {
       title = `Notes Tagged: ${notes.currentTag}`;
+      parag=`All notes tagged with ${notes.currentTag} are stored here.`
+
     }
     if (notes.asideCurrentTab === "settingsTab") {
       title = "Settings";
     }
-    return title;
+    return {title,parag};
   };
 
   const archiveData = {
@@ -89,11 +93,11 @@ function Board() {
 
       <section className="content-wrapper desktop">
         <header className="content-header">
-          <h1 className="main-title">{getTitle()}</h1>
+          <h1 className="main-title">{getContent().title}</h1>
           <div className="search-settings-wrapper">
             <SearchBar />
-            <button
-              type="button"
+            <NavLink
+              // type="button"
               className={`settings-btn ${isSettings && "active-settings-btn"}`}
               onClick={() => {
                 dispatchNotes({
@@ -101,9 +105,10 @@ function Board() {
                   payload: { tab: "settingsTab", key: "asideCurrentTab" },
                 });
               }}
+              to={`/settingsTab`}
             >
-              <Settings className="settings-icon" />
-            </button>
+              <Settings className={`settings-icon ${isSettings && "current-icon"}`} />
+            </NavLink>
           </div>
         </header>
 
@@ -113,6 +118,8 @@ function Board() {
           <div className="notes-detailed-wrapper">
             <div className="notes-wrapper">
               <Button data={newNoteData} />
+              <p className="main-paragraph">{getContent().parag}</p>
+
               <NoteCards data={searchResults} />
             </div>
 
@@ -183,7 +190,9 @@ function Board() {
           </Routes>
         </div>
 
+        <div className="mobile-aside-container">
         <AsideBar />
+        </div>
       </section>
       {notes.warningModal && <WarningModal />}
     </div>

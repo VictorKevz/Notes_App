@@ -23,7 +23,7 @@
   font-size: 1.4rem;
 }
 .detailed-tags,.detailed-time{
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 
 }
 .detailed-note-content{
@@ -61,11 +61,14 @@
   font-size: 1.4rem;
   color: var(--blue-500);
   transition: 0.3s ease-in-out;
-  border-bottom: 0.02rem solid var(--neutral-100);
+  border-bottom: 1px solid var(--neutral-200);
 }
 .title-input.edit:focus,
 .tags-input.edit {
-  border-bottom: 0.02rem solid gray !important;
+  border-bottom: 1px solid var(--neutral-200) !important;
+}
+.tags-input.edit {
+  margin-top: 1.6rem;
 }
 .edit-btn {
   min-height: 2.5rem;
@@ -87,7 +90,7 @@
 .note-field.edit-content {
   display: flex;
   flex-direction: column;
-  border: 1px solid gray;
+  border: 1px solid var(--neutral-100);
   transition: 0.3s ease-in-out;
   border-radius: 0.64rem;
   padding: 1rem;

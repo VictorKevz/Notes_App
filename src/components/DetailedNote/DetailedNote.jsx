@@ -186,7 +186,6 @@ function DetailedNote() {
           onClick={() => updateFields("content")}
         >
           <pre className="content-text">{obj?.content}</pre>
-          {/* <p ></p> */}
         </div>
       )}
     </div>

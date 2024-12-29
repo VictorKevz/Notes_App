@@ -222,7 +222,29 @@ function App() {
       });
     }
   }, [searchResults, notes.currentNoteId]);
-
+  const getContent = () => {
+    let title;
+    let parag;
+    if (notes.asideCurrentTab === "allNotes") {
+      title = "All Notes";
+    }
+    if (notes.asideCurrentTab === "archivedNotes") {
+      title = "Archived Notes";
+      parag="All your archived notes are stored here. You can restore or delete them anytime."
+    }
+    if (notes.asideCurrentTab === "tags") {
+      title = `Notes Tagged: ${notes.currentTag}`;
+      parag=`All notes tagged with ${notes.currentTag} are stored here.`
+    }
+    if (notes.asideCurrentTab === "searchTab") {
+      title = `Search`;
+      parag=`All notes matching "${query}" are displayed here.`
+    }
+    if (notes.asideCurrentTab === "settingsTab") {
+      title = "Settings";
+    }
+    return {title,parag};
+  };
   const isDark = notes.colorTheme === "darkMode";
   return (
     <DataContext.Provider
@@ -235,7 +257,8 @@ function App() {
         setQuery,
         isDark,
         isTablet, 
-        setIsTablet
+        setIsTablet,
+        getContent
       }}
     >
       <main

@@ -43,7 +43,7 @@ button,input,fieldset{
   background-color: inherit;
   border: none;
 }
-button{
+button,a{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,8 +52,7 @@ button{
 a{
   text-decoration: none!important;
   color: inherit!important;
-  display: flex;
-  align-items: center;
+  
 }
 li{
   list-style-type: none;

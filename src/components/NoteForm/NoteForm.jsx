@@ -100,6 +100,8 @@ function NoteForm() {
         </div>
       </div>
       <fieldset className="note-form-field content">
+        <label htmlFor="content" className="content-label">
+          </label>
         <textarea
           name="content"
           value={content}

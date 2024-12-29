@@ -10,6 +10,7 @@
     justify-content: center;
     z-index: 10;
     background-color: rgba(39, 37, 37, 0.728);
+    padding: 0 1.6rem;
   }
   .modal-container {
     max-width: 440px;
@@ -37,6 +38,15 @@
     align-items: center;
     justify-content: center;
     color: var(--neutral-950);
+  }
+  .modal-title{
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  .modal-parag{
+    font-size: 1.4rem;
+    margin-top: .6rem;
+    color: var(--neutral-700);
   }
   .modal-cta {
     width: 100%;

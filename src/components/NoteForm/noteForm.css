@@ -3,6 +3,9 @@
 }
 .note-form{
     padding: 2rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
 
 }
 .note-form-field,.tag-label,.lastEdited{
@@ -15,6 +18,7 @@
     min-height: max-content;
     display: flex;
     align-items: center;
+    font-size: 1.4rem;
 }
 .title-input{
     font-size: 2.4rem;
@@ -34,9 +38,17 @@
     gap: .6rem;
     max-width: 115px;
     width: 100%;
+    font-size: 1.4rem;
+    margin-bottom: .8rem;
 }
+.tags
 .lastEdited{
-    margin-top: .8rem;
+    display: flex;
+    align-items: center;
+}
+.lastEdited-text{
+    font-size: 1.4rem;
+    color: var(--neutral-500);
 }
 .note-form-field.content,.textarea-input{
 width: 100%;
@@ -73,14 +85,16 @@ min-height: 567px;
     border-radius: .8rem;
     font-size: 1.4rem;
     font-weight: 500;
-    color: var(--neutral-0);
+    color: var(--neutral-0)!important;
 }
 .save{
     background-color: var(--blue-500);
+    color: var(--neutral-0);
+
 }
 .cancel{
     background-color: var(--neutral-100);
-    color: var(--neutral-950);
+    color: var(--neutral-950)!important;
 }
 
 .error-message{
