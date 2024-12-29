@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
-    background-color: rgba(39, 37, 37, 0.728);
+    background-color: rgba(25, 24, 24, 0.517);
     padding: 0 1.6rem;
   }
   .modal-container {
@@ -20,6 +20,10 @@
     border-radius: 1.2rem;
     padding: 2rem 0 1.6rem 0;
   }
+  .dark-modal-bg {
+    background-color: var(--neutral-700);
+    border: 1px solid var(--neutral-500)!important;
+  }
   .modal-header {
     width: 100%;
     display: flex;
@@ -28,6 +32,9 @@
     gap: 1.6rem;
     padding: 0 2rem 2rem 2rem;
     border-bottom: 1px solid var(--neutral-100);
+  }
+  .modal-header.dark-bb{
+    border-bottom: 1px solid var(--neutral-500)!important;
   }
   .modal-icon-wrapper {
     min-height: 4rem;
@@ -64,11 +71,15 @@
     border-radius: 0.8rem;
     color: var(--neutral-600);
   }
+  .dark-btn{
+    background-color: var(--neutral-500);
+    color: var(--neutral-200);
+  }
   .delete {
-    background-color: var(--red-500);
+    background-color: var(--red-500)!important;
     color: var(--neutral-0);
   }
   .archive {
-    background-color: var(--blue-500);
+    background-color: var(--blue-500)!important;;
     color: var(--neutral-0);
   }

@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import { KeyboardArrowLeft } from "@mui/icons-material";
 import "./noteCards.css";
 function NoteCards({ data }) {
-  const { notes, dispatchNotes, isTablet,getContent } = useContext(DataContext);
+  const { notes, dispatchNotes, isTablet,getContent,isDark } = useContext(DataContext);
   // const getTitle = () => {
   //   let title;
   //   if (notes.asideCurrentTab === "allNotes") {
@@ -52,7 +52,7 @@ function NoteCards({ data }) {
           {isTablet ? (
             <NavLink
             key={note.id}
-            className={`note-card ${isCurrent && "current-note"}`}
+            className={`note-card ${isCurrent && "current-note"} `}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -72,7 +72,7 @@ function NoteCards({ data }) {
           </NavLink>
           ):(
             <div
-            className={`note-card ${isCurrent && "current-note"}`}
+            className={`note-card ${isCurrent && "current-note"} ${isDark && "dark-bb"} ${isDark && isCurrent && "dark-card-bg"}`}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -82,7 +82,7 @@ function NoteCards({ data }) {
             <h3 className="note-title">{note?.title}</h3>
             <ul className="card-tag-list">
               {note?.tags?.map((tag, i) => (
-                <li key={i} className="card-tag-item">
+                <li key={i} className={`card-tag-item ${isDark && "dark-tag-item"}`}>
                   {tag}
                 </li>
               ))}

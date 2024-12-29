@@ -4,7 +4,7 @@ import { KeyboardArrowRight } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import "./AsideBar/asideBar.css";
 function TabNav({ data, tabKey }) {
-  const { notes, dispatchNotes } = useContext(DataContext);
+  const { notes, dispatchNotes,isDark } = useContext(DataContext);
   return (
     <>
       {data.map((link) => {
@@ -18,7 +18,7 @@ function TabNav({ data, tabKey }) {
           >
             <NavLink
               // type="button"
-              className={`btn  ${isCurrent && "current-link"}`}
+              className={`btn  ${isCurrent && "current-link"} ${isCurrent && isDark && "dark-card-bg"}`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",

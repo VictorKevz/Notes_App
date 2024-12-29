@@ -9,11 +9,24 @@
 .note-card {
   padding: 0.8rem;
   /* gap: 1.2rem; */
+  cursor: pointer;
 }
+.note-card:not(.current-note, :last-child):hover {
+background-color: var(--neutral-200)!important;
+border-radius: 0.6rem;
+
+}
+.note-card.dark-bb:not(.current-note, :last-child):hover {
+  border-radius: 0.6rem;
+  background-color: var(--neutral-800)!important;
+
+  
+  }
 .note-card:not(.current-note, :last-child) {
   border-bottom: 1px solid var(--neutral-200);
   margin-bottom: 0.4rem;
 }
+
 .note-title {
   font-size: 1.6rem;
   font-weight: 600;
@@ -35,6 +48,9 @@
   background-color: var(--neutral-200);
   border-radius: 0.4rem;
   font-size: 1.2rem;
+}
+.dark-tag-item{
+  background-color: var(--neutral-600);
 }
 .card-date {
   margin-top: 1.2rem;

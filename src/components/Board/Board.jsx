@@ -11,6 +11,7 @@ import {
   Settings,
 } from "@mui/icons-material";
 import logo from "../../assets/images/logo.svg";
+import logoDark from "../../assets/images/logo-dark.png";
 
 import NoteCards from "../NoteCard/NoteCards";
 import { DataContext } from "../../App";
@@ -25,8 +26,15 @@ import { Routes, Route, Link, NavLink } from "react-router-dom";
 // import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
-  const { notes, dispatchNotes, searchResults, setIsTablet, isTablet,getContent } =
-    useContext(DataContext);
+  const {
+    notes,
+    dispatchNotes,
+    searchResults,
+    setIsTablet,
+    isTablet,
+    getContent,
+    isDark,
+  } = useContext(DataContext);
 
   const getTitle = () => {
     let title;
@@ -36,17 +44,17 @@ function Board() {
     }
     if (notes.asideCurrentTab === "archivedNotes") {
       title = "Archived Notes";
-      parag="All your archived notes are stored here. You can restore or delete them anytime."
+      parag =
+        "All your archived notes are stored here. You can restore or delete them anytime.";
     }
     if (notes.asideCurrentTab === "tags") {
       title = `Notes Tagged: ${notes.currentTag}`;
-      parag=`All notes tagged with ${notes.currentTag} are stored here.`
-
+      parag = `All notes tagged with ${notes.currentTag} are stored here.`;
     }
     if (notes.asideCurrentTab === "settingsTab") {
       title = "Settings";
     }
-    return {title,parag};
+    return { title, parag };
   };
 
   const archiveData = {
@@ -86,13 +94,13 @@ function Board() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div className="board-wrapper mobile">
+    <div className={`board-wrapper mobile ${isDark && "dark-border"}`}>
       <div className="aside desktop">
         <AsideBar />
       </div>
 
-      <section className="content-wrapper desktop">
-        <header className="content-header">
+      <section className={`content-wrapper desktop ${isDark && "dark-bl"}`}>
+        <header className={`content-header ${isDark && "dark-bb"}`}>
           <h1 className="main-title">{getContent().title}</h1>
           <div className="search-settings-wrapper">
             <SearchBar />
@@ -107,7 +115,9 @@ function Board() {
               }}
               to={`/settingsTab`}
             >
-              <Settings className={`settings-icon ${isSettings && "current-icon"}`} />
+              <Settings
+                className={`settings-icon ${isSettings && "current-icon"}`}
+              />
             </NavLink>
           </div>
         </header>
@@ -116,14 +126,14 @@ function Board() {
           <SettingsPage />
         ) : (
           <div className="notes-detailed-wrapper">
-            <div className="notes-wrapper">
+            <div className={`notes-wrapper ${isDark && "dark-br"}`}>
               <Button data={newNoteData} />
               <p className="main-paragraph">{getContent().parag}</p>
 
               <NoteCards data={searchResults} />
             </div>
 
-            <div className="detailed-notes-wrapper">
+            <div className={`detailed-notes-wrapper ${isDark && "dark-br"}`}>
               {notes.showForm ? <NoteForm /> : <DetailedNote />}
             </div>
             {!notes.showForm && (
@@ -139,7 +149,11 @@ function Board() {
 
       <section className="tablet-mobile-board">
         <header className="aside-header mobile">
-          <img src={logo} alt="Notes App logo" className="logo" />
+          <img
+            src={isDark ? logoDark : logo}
+            alt="Notes App logo"
+            className="logo"
+          />
         </header>
         <div className="notes-wrapper">
           {notes.asideCurrentTab !== "settingsTab" &&
@@ -191,7 +205,7 @@ function Board() {
         </div>
 
         <div className="mobile-aside-container">
-        <AsideBar />
+          <AsideBar />
         </div>
       </section>
       {notes.warningModal && <WarningModal />}

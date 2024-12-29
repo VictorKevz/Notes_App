@@ -3,15 +3,13 @@ import { DataContext } from "../App";
 import { Link } from "react-router-dom";
 
 function Button({ data }) {
-  const { notes, dispatchNotes, isTablet } = useContext(DataContext);
-  // const isNewNote = notes.asideCurrentTab === "searchTab";
+  const { notes, dispatchNotes, isTablet, isDark } = useContext(DataContext);
+  const isNewNote = data.actionType === "SHOW_FORM";
   return (
     <>
       {isTablet && data.text === "Create New Note" ? (
         <Link
-          className={`reusable-btn mobile ${
-            data.actionType === "SHOW_FORM" && "add-note-btn"
-          } 
+          className={`reusable-btn mobile ${isNewNote && "add-note-btn"} 
           
           `}
           onClick={() => {
@@ -30,14 +28,13 @@ function Button({ data }) {
           }}
           to="/newNote"
         >
-          <data.icon /> <span className="nav-text mobile new-note-btn">{data.text}</span>
+          <data.icon />{" "}
+          <span className="nav-text mobile new-note-btn">{data.text}</span>
         </Link>
       ) : (
         <button
           type="button"
-          className={`reusable-btn mobile ${
-            data.actionType === "SHOW_FORM" && "add-note-btn"
-          }`}
+          className={`reusable-btn mobile ${isNewNote && "add-note-btn"} ${isDark && !isNewNote && "dark-border"}`}
           onClick={() => {
             dispatchNotes({
               type: `${
@@ -53,7 +50,7 @@ function Button({ data }) {
             });
           }}
         >
-          <data.icon /> <span className="nav-text mobile">{data.text}</span>
+          <data.icon className={`${isDark && "dark-text-primary"}`}/> <span className={`nav-text mobile ${isDark && "dark-text-primary"}`}>{data.text}</span>
         </button>
       )}
     </>

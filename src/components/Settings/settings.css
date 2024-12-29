@@ -52,6 +52,10 @@
     padding: 0 1.6rem;
     border-radius: 1.2rem;
 }
+.dark-border.dark-border,.icon-wrapper.dark-boarder{
+    border: 1px solid var(--neutral-700)!important;
+    color: var(--neutral-200)!important;
+}
 .current-theme{
     background-color: var(--neutral-100);
 }

@@ -9,7 +9,7 @@ import "./detailedNote.css";
 import { DataContext } from "../../App";
 
 function DetailedNote() {
-  const { dispatchNotes, currentNoteObj: obj } = useContext(DataContext);
+  const { dispatchNotes, currentNoteObj: obj,isDark } = useContext(DataContext);
   const [editFields, setEditFields] = useState([]);
   const [editForm, setEditForm] = useState({
     title: obj?.title,
@@ -66,7 +66,7 @@ function DetailedNote() {
   return (
     <div className="detailed-note-container">
       
-      <header className="detailed-note-header">
+      <header className={`detailed-note-header ${isDark && "dark-bb"}`}>
         {editFields.includes("title") ? (
           <fieldset className="note-field edit">
             <input

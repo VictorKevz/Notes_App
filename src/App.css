@@ -12,10 +12,26 @@
   /* padding: 0 2.4rem; */
 }
 
+/* DARK MODE..................... */
 .dark-body-bg {
-  background-color: var(--neutral-950);
-  color: var(--neutral-0);
-  transition: 0.3s ease-in-out;
+  background-color: var(--neutral-950)!important;
+  color: var(--neutral-0)!important;
+  transition: 0.3s ease-in-out!important;
+}
+.dark-card-bg{
+  background-color: var(--neutral-800)!important;
+  color: var(--neutral-0)!important;
+  transition: 0.3s ease-in-out!important;
+}
+.dark-text-secondary{
+  color: var(--neutral-200)!important;
+  transition: 0.3s ease-in-out!important;
+
+}
+.dark-text-primary{
+  color: var(--neutral-0)!important;
+  transition: 0.3s ease-in-out!important;
+
 }
 @media (width > 1500px) {
 .board-wrapper {

@@ -4,7 +4,7 @@ import { DataContext } from "../../App";
 import { span } from "framer-motion/client";
 
 function ThemeOptions() {
-  const { notes, dispatchNotes } = useContext(DataContext);
+  const { notes, dispatchNotes,isDark } = useContext(DataContext);
   const themeData = {
     colorTheme: {
       id: "colorTheme",
@@ -73,7 +73,7 @@ function ThemeOptions() {
             <li key={option.id} className="theme-option-item">
               <button
                 type="button"
-                className={`theme-option-btn ${isSelected && "current-theme"}`}
+                className={`theme-option-btn ${isSelected && "current-theme"} ${isDark && isSelected && "dark-card-bg"} ${isDark && "dark-border"}`}
                 onClick={() => {
                   dispatchNotes({
                     type: "UPDATE_TAB",
@@ -85,7 +85,7 @@ function ThemeOptions() {
                 }}
               >
                 <span className="left-side-wrapper">
-                  <span className="icon-wrapper">
+                  <span className={`icon-wrapper ${isDark && "dark-border"}`}>
                     {obj.id === "colorTheme" ? (
                       <option.icon />
                     ) : (

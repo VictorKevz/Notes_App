@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import logo from "../../assets/images/logo.svg";
+import logoDark from "../../assets/images/logo-dark.png";
 import { ArchiveOutlined, HomeOutlined, LocalOfferOutlined, Search, Settings } from "@mui/icons-material";
 import TagList from "../TagList";
 import "./asideBar.css";
@@ -7,7 +8,7 @@ import { DataContext } from "../../App";
 import TabNav from "../TabNav";
 
 function AsideBar() {
-  const { notes, dispatchNotes } = useContext(DataContext);
+  const { notes, dispatchNotes,isDark } = useContext(DataContext);
 
   const headerLinks = [
     { id: "allNotes", url:"/", text: "All Notes", icon: HomeOutlined },
@@ -19,7 +20,7 @@ function AsideBar() {
   return (
     <aside className="aside-wrapper mobile">
       <header className="aside-header desktop">
-        <img src={logo} alt="Notes App logo" className="logo" />
+        <img src={isDark ? logoDark : logo} alt="Notes App logo" className="logo" />
       </header>
       <nav className="aside-nav mobile">
         <ul className="links-wrapper desktop">

@@ -62,6 +62,9 @@ border-top: 1px solid var(--neutral-200);
 font-size: 1.6rem;
 
 }
+.dark-tag-list{
+  border-top: 1px solid var(--neutral-800);
+}
 .tag-heading{
   color: var(--neutral-500);
   font-size: 1.4rem;
@@ -70,9 +73,6 @@ font-size: 1.6rem;
 .tag-item{
     width: 100%;
 }
-.tag-btn{
-    color: white;
 
-}
 
 
