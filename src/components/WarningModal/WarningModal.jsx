@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { DataContext } from "../../App";
 import "./modal.css";
 import { FocusTrap } from "focus-trap-react";
+import { motion } from "framer-motion";
+import { detailedVariants } from "../../variants";
+
 function WarningModal() {
   const { dispatchNotes, notes, isDark } = useContext(DataContext);
   const { typeText, parag, modalTitle } = notes.modalData;
@@ -16,7 +19,13 @@ function WarningModal() {
       aria-modal="true"
     >
       <FocusTrap>
-      <article className={`modal-container ${isDark && "dark-modal-bg"}`}>
+      <motion.article 
+      className={`modal-container ${isDark && "dark-modal-bg"}`}
+      variants={detailedVariants}
+      initial="initial"
+      animate="animate"
+      key={notes.modalData.modalId}
+      >
         <header className={`modal-header ${isDark && "dark-bb"}`}>
           <div
             className={`modal-icon-wrapper ${isDark && "dark-btn"}`}
@@ -58,7 +67,7 @@ function WarningModal() {
             {modalTitle}
           </button>
         </footer>
-      </article>
+      </motion.article>
       </FocusTrap>
     </div>
   );

@@ -22,7 +22,9 @@ import NoteForm from "../NoteForm/NoteForm";
 import Button from "../Button";
 import WarningModal from "../WarningModal/WarningModal";
 import TagList from "../TagList";
-import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { detailedVariants } from "../../variants";
 // import FilteredTagsPage from "../FilteredTags";
 
 function Board() {
@@ -72,6 +74,7 @@ function Board() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const location = useLocation();
   return (
     <div className={`board-wrapper mobile ${isDark && "dark-border"}`}>
       <div className="aside desktop">
@@ -181,84 +184,119 @@ function Board() {
                 <Button data={newNoteData} aria-label="Create New Note" />
               </div>
             )}
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <NoteCards
-                  data={searchResults}
-                  aria-label="Notes List for All Notes"
-                />
-              }
-            />
-            <Route
-              path="/archivedNotes"
-              element={
-                <NoteCards
-                  data={searchResults}
-                  aria-label="Notes List for Archived Notes"
-                />
-              }
-            />
-            <Route path="/tags" element={<TagList aria-label="Tags List" />} />
-            <Route
-              path={`/filteredTags`}
-              element={
-                <NoteCards
-                  data={searchResults}
-                  aria-label="Notes List for Filtered Tags"
-                />
-              }
-            />
-            <Route
-              path={`/searchTab`}
-              element={<SearchBar aria-label="Search Notes" />}
-            />
-            <Route
-              path={`/details`}
-              element={
-                <div
-                  className="detailed-mobile-wrapper"
-                  aria-label="Detailed Note View"
-                >
-                  <div
-                    className={`detailed-mobile-actions-container ${
-                      isDark && "dark-bb"
-                    }`}
-                    aria-label="Action Buttons for Detailed Note"
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.key}>
+              <Route
+                path="/"
+                element={
+                  <motion.div
+                    variants={detailedVariants}
+                    initial="initial"
+                    animate="animate"
                   >
-                    <Link
-                      to={`${
-                        notes.asideCurrentTab === "allNotes"
-                          ? "/"
-                          : `/${notes.asideCurrentTab}`
-                      }`}
-                      className="go-back-link"
-                      aria-label="Go Back to Previous View"
-                    >
-                      <KeyboardArrowLeft aria-hidden="true" /> Go Back
-                    </Link>
+                    <NoteCards
+                      data={searchResults}
+                      aria-label="Notes List for All Notes"
+                    />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/archivedNotes"
+                element={
+                  <motion.div
+                    variants={detailedVariants}
+                    initial="initial"
+                    animate="animate"
+                  >
+                    <NoteCards
+                      data={searchResults}
+                      aria-label="Notes List for Archived Notes"
+                    />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/tags"
+                element={
+                  <motion.div
+                    variants={detailedVariants}
+                    initial="initial"
+                    animate="animate"
+                    className="tags-list-route"
+                  >
+                    <TagList aria-label="Tags List" />
+                  </motion.div>
+                }
+              />
+              <Route
+                path={`/filteredTags`}
+                element={
+                  <NoteCards
+                    data={searchResults}
+                    aria-label="Notes List for Filtered Tags"
+                  />
+                }
+              />
+              <Route
+                path={`/searchTab`}
+                element={
+                  <motion.div
+                    variants={detailedVariants}
+                    initial="initial"
+                    animate="animate"
+                    className="search-tab-route"
+                  >
+                    <SearchBar aria-label="Search Notes" />
+                  </motion.div>
+                }
+              />
+              <Route
+                path={`/details`}
+                element={
+                  <div
+                    className="detailed-mobile-wrapper"
+                    aria-label="Detailed Note View"
+                  >
                     <div
-                      className="detailed-delete-archive"
-                      aria-label="Delete and Archive Actions"
+                      className={`detailed-mobile-actions-container ${
+                        isDark && "dark-bb"
+                      }`}
+                      aria-label="Action Buttons for Detailed Note"
                     >
-                      <Button data={deleteData} aria-label="Delete Note" />
-                      <Button data={archiveData} aria-label="Archive Note" />
+                      <Link
+                        to={`${
+                          notes.asideCurrentTab === "allNotes"
+                            ? "/"
+                            : `/${notes.asideCurrentTab}`
+                        }`}
+                        className="go-back-link"
+                        aria-label="Go Back to Previous View"
+                      >
+                        <KeyboardArrowLeft aria-hidden="true" /> Go Back
+                      </Link>
+                      <div
+                        className="detailed-delete-archive"
+                        aria-label="Delete and Archive Actions"
+                      >
+                        <Button data={deleteData} aria-label="Delete Note" />
+                        <Button data={archiveData} aria-label="Archive Note" />
+                      </div>
                     </div>
+                    <DetailedNote aria-label="Detailed Note Content" />
                   </div>
-                  <DetailedNote aria-label="Detailed Note Content" />
-                </div>
-              }
-            />
-            <Route
-              path="/newNote"
-              element={<NoteForm aria-label="New Note Form" />}
-            />
-            <Route
-              path="/settingsTab"
-              element={<SettingsPage aria-label="Settings Page" />}
-            />
-          </Routes>
+                }
+              />
+              <Route
+                path="/newNote"
+                element={<NoteForm aria-label="New Note Form" />}
+              />
+              <Route
+                path="/settingsTab"
+                element={<SettingsPage aria-label="Settings Page" />}
+              />
+            </Routes>
+          </AnimatePresence>
         </div>
 
         <div

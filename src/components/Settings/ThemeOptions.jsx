@@ -1,7 +1,8 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
-import { span } from "framer-motion/client";
+import { motion } from "framer-motion";
+import { detailedVariants } from "../../variants";
 
 function ThemeOptions() {
   const { notes, dispatchNotes, isDark } = useContext(DataContext);
@@ -76,7 +77,14 @@ function ThemeOptions() {
           const isSerif = index === 1;
           const isMono = index === 2;
           return (
-            <li key={option.id} className="theme-option-item" role="listitem">
+            <motion.li 
+            key={option.id} className="theme-option-item" 
+            role="listitem"
+            variants={detailedVariants}
+            initial="initial"
+            animate="animate"
+
+            >
               <button
                 type="button"
                 className={`theme-option-btn ${isSelected && "current-theme"} ${
@@ -121,7 +129,7 @@ function ThemeOptions() {
                   aria-hidden="true"
                 ></span>
               </button>
-            </li>
+            </motion.li>
           );
         })}
       </ul>

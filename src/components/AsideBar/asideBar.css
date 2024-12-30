@@ -62,6 +62,9 @@ border-top: 1px solid var(--neutral-200);
 font-size: 1.6rem;
 
 }
+.tags-list-route,.search-tab-route{
+  width: 100%;
+}
 .dark-tag-list{
   border-top: 1px solid var(--neutral-800);
 }

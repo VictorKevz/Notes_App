@@ -7,6 +7,8 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import "./detailedNote.css";
 import { DataContext } from "../../App";
+import { AnimatePresence, motion } from "framer-motion";
+import { detailedVariants } from "../../variants";
 
 function DetailedNote() {
   const {
@@ -71,7 +73,13 @@ function DetailedNote() {
   return (
     <>
       {searchResults?.length > 0 ? (
-        <div className="detailed-note-container">
+        <AnimatePresence>
+        <motion.div className="detailed-note-container"
+        variants={detailedVariants}
+        initial="initial"
+        animate="animate"
+        key={obj?.id}
+        >
           <header className={`detailed-note-header ${isDark && "dark-bb"}`}>
             {editFields.includes("title") ? (
               <fieldset className="note-field edit">
@@ -208,12 +216,16 @@ function DetailedNote() {
               <pre className="content-text">{obj?.content}</pre>
             </div>
           )}
-        </div>
+        </motion.div>
+        </AnimatePresence>
       ) : (
-        <p className="no-notes-text">
+        <motion.p className="no-notes-text"
+        variants={detailedVariants}
+        animate="animate"
+        >
           You don’t have any notes available in this tab. Start a new note to capture your
           thoughts and ideas.
-        </p>
+        </motion.p>
       )}
     </>
   );
