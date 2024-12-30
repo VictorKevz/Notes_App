@@ -16,7 +16,7 @@ function SettingsPage() {
     localStorage.setItem("colorTheme", JSON.stringify(notes?.colorTheme));
   }, [notes?.fontTheme, notes?.colorTheme]);
   return (
-    <div className="settings-wrapper">
+    <div className={`settings-wrapper ${isDark && "dark-bb"}`}>
       {isTablet && <h1 className="main-title settings-title">Settings</h1>}
       <nav className={`settings-nav ${isDark && "dark-br"}`}>
         <ul className="settings-list">

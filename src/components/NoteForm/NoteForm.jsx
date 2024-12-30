@@ -5,7 +5,7 @@ import "./noteForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { nav } from "framer-motion/client";
 function NoteForm() {
-  const { notes, dispatchNotes,isTablet } = useContext(DataContext);
+  const { notes, dispatchNotes, isTablet, isDark } = useContext(DataContext);
   const { title, tags, content } = notes.form;
   const {
     title: validTitle,
@@ -56,8 +56,11 @@ function NoteForm() {
     return isValid;
   };
   return (
-    <form className="note-form" >
+    <form className="note-form" aria-labelledby="note-form-title">
       <fieldset className="note-form-field">
+        <legend id="note-form-title" className="sr-only">
+          Note Form
+        </legend>
         <label htmlFor="title" className="title-label">
           <input
             type="text"
@@ -66,17 +69,23 @@ function NoteForm() {
             onChange={handleChange}
             name="title"
             placeholder="Enter a title..."
-            className="title-input"
+            className={`title-input ${isDark && "dark-title"}`}
+            aria-invalid={!validTitle}
+            aria-describedby="title-error"
           />
         </label>
         {!validTitle && (
-          <span className="error-message">Provide a valid title</span>
+          <span id="title-error" className="error-message">
+            Provide a valid title
+          </span>
         )}
       </fieldset>
-      <div className="tags-lastEdited-wrapper">
+
+      <div className={`tags-lastEdited-wrapper ${isDark && "dark-bb"}`}>
         <fieldset className="note-form-field">
+          <legend className="sr-only">Tags</legend>
           <label htmlFor="tags" className="tag-label">
-            <SellOutlined />
+            <SellOutlined aria-hidden="true" />
             Tags
           </label>
           <input
@@ -86,76 +95,91 @@ function NoteForm() {
             onChange={handleChange}
             name="tags"
             placeholder="Add tags separated by commas (e.g. Work, Planning)"
-            className="tags-input"
+            className={`tags-input ${isDark && "dark-tags"}`}
+            aria-invalid={!validTags}
+            aria-describedby="tags-error"
           />
           {!validTags && (
-            <span className="error-message">Provide valid tags</span>
+            <span id="tags-error" className="error-message">
+              Provide valid tags
+            </span>
           )}
         </fieldset>
-        <div className="lastEdited">
-          <span className="tag-label">
-            <AccessTimeOutlined /> Last Edited
+        <div className="lastEdited" aria-live="polite">
+          <span className="edit-label">
+            <AccessTimeOutlined aria-hidden="true" /> Last Edited
           </span>
-          <p className="lastEdited-text">Not yet saved</p>
+          <span className="lastEdited-text">Not yet saved</span>
         </div>
       </div>
-      <fieldset className="note-form-field content">
+
+      <fieldset className={`note-form-field content ${isDark && "dark-bb"}`}>
+        <legend className="sr-only">Content</legend>
         <label htmlFor="content" className="content-label">
-          </label>
+          
+        </label>
         <textarea
           name="content"
           value={content}
           onChange={handleChange}
           id="content"
-          className="textarea-input"
+          className={`textarea-input ${isDark && "dark-content"}`}
           placeholder="Start typing your note here…"
+          aria-invalid={!validContent}
+          aria-describedby="content-error"
         />
         {!validContent && (
-          <span className="error-message">Provide valid content!</span>
+          <span id="content-error" className="error-message">
+            Provide valid content!
+          </span>
         )}
       </fieldset>
-      <>
-      {isTablet ? (
-       <fieldset className="form-btn-wrapper">
-       
-       <Link  
-       className="form-btn save"
-       onClick={handleSubmit}
-       to="/"
-       >
-         Save Note
-       </Link>
-       <Link
-         type="button"
-         className="form-btn cancel"
-         onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
-         to="/"
-       >
-         
-         Cancel
-       </Link>
-     </fieldset> 
-      ) : (
-        <fieldset className="form-btn-wrapper">
-       
-        <button 
-        type="button" 
-        className="form-btn save"
-        onClick={handleSubmit}
-        >
-          Save Note
-        </button>
-        <button
-          type="button"
-          className="form-btn cancel"
-          onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
-        >
-          
-          Cancel
-        </button>
+
+      <fieldset className="form-btn-wrapper">
+        <legend className="sr-only">Form Actions</legend>
+        {isTablet ? (
+          <>
+            <Link
+              className="form-btn save"
+              onClick={handleSubmit}
+              to="/"
+              role="button"
+              aria-label="Save Note"
+            >
+              Save Note
+            </Link>
+            <Link
+              type="button"
+              className="form-btn cancel"
+              onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
+              to="/"
+              role="button"
+              aria-label="Cancel"
+            >
+              Cancel
+            </Link>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              className="form-btn save"
+              onClick={handleSubmit}
+              aria-label="Save Note"
+            >
+              Save Note
+            </button>
+            <button
+              type="button"
+              className="form-btn cancel"
+              onClick={() => dispatchNotes({ type: "HIDE_FORM" })}
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+          </>
+        )}
       </fieldset>
-      )}
-      </>
     </form>
   );
 }

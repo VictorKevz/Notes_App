@@ -36,27 +36,6 @@ function Board() {
     isDark,
   } = useContext(DataContext);
 
-  const getTitle = () => {
-    let title;
-    let parag;
-    if (notes.asideCurrentTab === "allNotes") {
-      title = "All Notes";
-    }
-    if (notes.asideCurrentTab === "archivedNotes") {
-      title = "Archived Notes";
-      parag =
-        "All your archived notes are stored here. You can restore or delete them anytime.";
-    }
-    if (notes.asideCurrentTab === "tags") {
-      title = `Notes Tagged: ${notes.currentTag}`;
-      parag = `All notes tagged with ${notes.currentTag} are stored here.`;
-    }
-    if (notes.asideCurrentTab === "settingsTab") {
-      title = "Settings";
-    }
-    return { title, parag };
-  };
-
   const archiveData = {
     text:
       notes.asideCurrentTab !== "archivedNotes"
@@ -99,14 +78,23 @@ function Board() {
         <AsideBar />
       </div>
 
-      <section className={`content-wrapper desktop ${isDark && "dark-bl"}`}>
-        <header className={`content-header ${isDark && "dark-bb"}`}>
-          <h1 className="main-title">{getContent().title}</h1>
+      <section
+        className={`content-wrapper desktop ${isDark && "dark-bl"}`}
+        aria-labelledby="main-title"
+      >
+        <header
+          className={`content-header ${isDark && "dark-bb"}`}
+          aria-label="Page Header"
+        >
+          <h1 id="main-title" className="main-title">
+            {getContent().title}
+          </h1>
           <div className="search-settings-wrapper">
-            <SearchBar />
+            <SearchBar aria-label="Search Notes" />
             <NavLink
-              // type="button"
-              className={`settings-btn ${isSettings && "active-settings-btn"} ${isSettings && isDark && "dark-card-bg"}`}
+              className={`settings-btn ${isSettings && "active-settings-btn"} ${
+                isSettings && isDark && "dark-card-bg"
+              }`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",
@@ -114,72 +102,131 @@ function Board() {
                 });
               }}
               to={`/settingsTab`}
+              aria-label="Settings"
+              aria-current={isSettings ? "page" : undefined}
             >
               <Settings
                 className={`settings-icon ${isSettings && "current-icon"}`}
+                aria-hidden="true"
               />
             </NavLink>
           </div>
         </header>
 
         {isSettings ? (
-          <SettingsPage />
+          <SettingsPage aria-label="Settings Page" />
         ) : (
-          <div className="notes-detailed-wrapper">
-            <div className={`notes-wrapper ${isDark && "dark-br"}`}>
-              <Button data={newNoteData} />
-              <p className="main-paragraph">{getContent().parag}</p>
+          <div className="notes-detailed-wrapper" aria-label="Notes Section">
+            <div
+              className={`notes-wrapper ${isDark && "dark-br"}`}
+              aria-label="Notes List"
+            >
+              <Button data={newNoteData} aria-label="Create New Note" />
+              <p className="main-paragraph" aria-live="polite">
+                {getContent().parag}
+              </p>
 
-              <NoteCards data={searchResults} />
+              <NoteCards data={searchResults} aria-label="Search Results" />
             </div>
 
-            <div className={`detailed-notes-wrapper ${isDark && "dark-br"}`}>
-              {notes.showForm ? <NoteForm /> : <DetailedNote />}
+            <div
+              className={`detailed-notes-wrapper ${isDark && "dark-br"}`}
+              aria-label="Detailed Notes Section"
+            >
+              {notes.showForm ? (
+                <NoteForm aria-label="Note Form" />
+              ) : (
+                <DetailedNote aria-label="Detailed Note" />
+              )}
             </div>
+
             {!notes.showForm && (
-              <div className="btn-actions-wrapper">
-                <Button data={archiveData} />
-
-                <Button data={deleteData} />
+              <div
+                className="btn-actions-wrapper"
+                aria-label="Action Buttons Section"
+              >
+                <Button data={archiveData} aria-label="Archive Notes" />
+                <Button data={deleteData} aria-label="Delete Notes" />
               </div>
             )}
           </div>
         )}
       </section>
 
-      <section className={`tablet-mobile-board ${isDark && "dark-body-bg"}`}>
-        <header className={`aside-header ${isDark && "dark-card-bg"}`}>
+      <section
+        className={`tablet-mobile-board ${isDark && "dark-body-bg"}`}
+        aria-labelledby="mobile-board-title"
+      >
+        <header
+          className={`aside-header ${isDark && "dark-card-bg"}`}
+          aria-label="App Header"
+        >
           <img
             src={isDark ? logoDark : logo}
             alt="Notes App logo"
             className="logo"
           />
         </header>
-        <div className={`notes-wrapper ${isDark && "dark-body-bg"}`}>
+        <div
+          className={`notes-wrapper ${isDark && "dark-body-bg"}`}
+          aria-label="Notes Content Wrapper"
+        >
           {notes.asideCurrentTab !== "settingsTab" &&
             isTablet &&
             !notes.showForm && (
-              <div className="mobile-newNote">
-                <Button data={newNoteData} />
+              <div
+                className="mobile-newNote"
+                aria-label="Create New Note Section"
+              >
+                <Button data={newNoteData} aria-label="Create New Note" />
               </div>
             )}
           <Routes>
-            <Route path="/" element={<NoteCards data={searchResults} />} />
+            <Route
+              path="/"
+              element={
+                <NoteCards
+                  data={searchResults}
+                  aria-label="Notes List for All Notes"
+                />
+              }
+            />
             <Route
               path="/archivedNotes"
-              element={<NoteCards data={searchResults} />}
+              element={
+                <NoteCards
+                  data={searchResults}
+                  aria-label="Notes List for Archived Notes"
+                />
+              }
             />
-            <Route path="/tags" element={<TagList />} />
+            <Route path="/tags" element={<TagList aria-label="Tags List" />} />
             <Route
               path={`/filteredTags`}
-              element={<NoteCards data={searchResults} />}
+              element={
+                <NoteCards
+                  data={searchResults}
+                  aria-label="Notes List for Filtered Tags"
+                />
+              }
             />
-            <Route path={`/searchTab`} element={<SearchBar />} />
+            <Route
+              path={`/searchTab`}
+              element={<SearchBar aria-label="Search Notes" />}
+            />
             <Route
               path={`/details`}
               element={
-                <div className="detailed-mobile-wrapper">
-                  <div className="detailed-mobile-actions-container">
+                <div
+                  className="detailed-mobile-wrapper"
+                  aria-label="Detailed Note View"
+                >
+                  <div
+                    className={`detailed-mobile-actions-container ${
+                      isDark && "dark-bb"
+                    }`}
+                    aria-label="Action Buttons for Detailed Note"
+                  >
                     <Link
                       to={`${
                         notes.asideCurrentTab === "allNotes"
@@ -187,24 +234,37 @@ function Board() {
                           : `/${notes.asideCurrentTab}`
                       }`}
                       className="go-back-link"
+                      aria-label="Go Back to Previous View"
                     >
-                      <KeyboardArrowLeft /> Go Back
+                      <KeyboardArrowLeft aria-hidden="true" /> Go Back
                     </Link>
-                    <div className="detailed-delete-archive">
-                      <Button data={deleteData} />
-                      <Button data={archiveData} />
+                    <div
+                      className="detailed-delete-archive"
+                      aria-label="Delete and Archive Actions"
+                    >
+                      <Button data={deleteData} aria-label="Delete Note" />
+                      <Button data={archiveData} aria-label="Archive Note" />
                     </div>
                   </div>
-                  <DetailedNote />
+                  <DetailedNote aria-label="Detailed Note Content" />
                 </div>
               }
             />
-            <Route path="/newNote" element={<NoteForm />} />
-            <Route path="/settingsTab" element={<SettingsPage />} />
+            <Route
+              path="/newNote"
+              element={<NoteForm aria-label="New Note Form" />}
+            />
+            <Route
+              path="/settingsTab"
+              element={<SettingsPage aria-label="Settings Page" />}
+            />
           </Routes>
         </div>
 
-        <div className={`mobile-bottom-bar ${isDark && "dark-body-bg"}`}>
+        <div
+          className={`mobile-bottom-bar ${isDark && "dark-body-bg"}`}
+          aria-label="Bottom Navigation Bar"
+        >
           <AsideBar />
         </div>
       </section>

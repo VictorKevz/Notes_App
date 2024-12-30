@@ -9,7 +9,12 @@ import "./detailedNote.css";
 import { DataContext } from "../../App";
 
 function DetailedNote() {
-  const { dispatchNotes, currentNoteObj: obj,isDark } = useContext(DataContext);
+  const {
+    dispatchNotes,
+    searchResults,
+    currentNoteObj: obj,
+    isDark,
+  } = useContext(DataContext);
   const [editFields, setEditFields] = useState([]);
   const [editForm, setEditForm] = useState({
     title: obj?.title,
@@ -64,131 +69,153 @@ function DetailedNote() {
     year: "numeric",
   });
   return (
-    <div className="detailed-note-container">
-      
-      <header className={`detailed-note-header ${isDark && "dark-bb"}`}>
-        {editFields.includes("title") ? (
-          <fieldset className="note-field edit">
-            <input
-              type="text"
-              name="title"
-              value={editForm.title}
-              onChange={handleChange}
-              className="title-input edit"
-            />
-            <div className="edit-cta">
-              <button
-                type="button"
-                className="edit-btn save"
-                onClick={() => {
-                  handleSave("title");
-                }}
-              >
-                <Check />
-              </button>
-              <button
-                type="button"
-                className="edit-btn cancel"
+    <>
+      {searchResults?.length > 0 ? (
+        <div className="detailed-note-container">
+          <header className={`detailed-note-header ${isDark && "dark-bb"}`}>
+            {editFields.includes("title") ? (
+              <fieldset className="note-field edit">
+                <legend className="sr-only">Edit Title</legend>
+                <input
+                  type="text"
+                  name="title"
+                  value={editForm.title}
+                  onChange={handleChange}
+                  className="title-input edit"
+                  aria-label="Edit title"
+                />
+                <div className="edit-cta">
+                  <button
+                    type="button"
+                    className="edit-btn save"
+                    onClick={() => handleSave("title")}
+                    aria-label="Save title"
+                  >
+                    <Check />
+                  </button>
+                  <button
+                    type="button"
+                    className="edit-btn cancel"
+                    onClick={() => updateFields("title")}
+                    aria-label="Cancel editing title"
+                  >
+                    <Close />
+                  </button>
+                </div>
+              </fieldset>
+            ) : (
+              <h2
+                className="detailed-note-title"
                 onClick={() => updateFields("title")}
+                tabIndex={0}
+                role="button"
+                aria-label="Edit title"
               >
-                <Close />
-              </button>
-            </div>
-          </fieldset>
-        ) : (
-          <h2
-            className="detailed-note-title"
-            onClick={() => updateFields("title")}
-          >
-            {obj?.title}
-          </h2>
-        )}
-        {editFields.includes("tags") ? (
-          <fieldset className="note-field edit">
-            <input
-              type="text"
-              name="tags"
-              value={editForm.tags}
-              onChange={handleChange}
-              className="tags-input edit"
-            />
-            <div className="edit-cta">
-              <button
-                type="button"
-                className="edit-btn save"
-                onClick={() => {
-                  handleSave("tags");
-                }}
-              >
-                <Check />
-              </button>
-              <button
-                type="button"
-                className="edit-btn cancel"
+                {obj?.title}
+              </h2>
+            )}
+            {editFields.includes("tags") ? (
+              <fieldset className="note-field edit">
+                <legend className="sr-only">Edit Tags</legend>
+                <input
+                  type="text"
+                  name="tags"
+                  value={editForm.tags}
+                  onChange={handleChange}
+                  className="tags-input edit"
+                  aria-label="Edit tags"
+                />
+                <div className="edit-cta">
+                  <button
+                    type="button"
+                    className="edit-btn save"
+                    onClick={() => handleSave("tags")}
+                    aria-label="Save tags"
+                  >
+                    <Check />
+                  </button>
+                  <button
+                    type="button"
+                    className="edit-btn cancel"
+                    onClick={() => updateFields("tags")}
+                    aria-label="Cancel editing tags"
+                  >
+                    <Close />
+                  </button>
+                </div>
+              </fieldset>
+            ) : (
+              <div
+                className="detailed-tags-list"
                 onClick={() => updateFields("tags")}
+                tabIndex={0}
+                role="button"
+                aria-label="Edit tags"
               >
-                <Close />
-              </button>
+                <span className="detailed-tag-text">
+                  <LocalOfferOutlined aria-hidden="true" /> Tags
+                </span>
+                <span className="detailed-tags">{obj?.tags.join(", ")}</span>
+              </div>
+            )}
+
+            <div className="detailed-time-edited">
+              <span className="detailed-time-text">
+                <AccessTimeFilledOutlined aria-hidden="true" /> Last Edited
+              </span>
+              <span className="detailed-time">{formattedDate}</span>
             </div>
-          </fieldset>
-        ) : (
-          <div
-            className="detailed-tags-list"
-            onClick={() => updateFields("tags")}
-          >
-            <span className="detailed-tag-text">
-              <LocalOfferOutlined /> Tags
-            </span>
-            <span className="detailed-tags">{obj?.tags.join(", ")}</span>
-          </div>
-        )}
+          </header>
 
-        <div className="detailed-time-edited">
-          <span className="detailed-time-text">
-            <AccessTimeFilledOutlined /> Last Edited
-          </span>
-
-          <span className="detailed-time">{formattedDate}</span>
-        </div>
-      </header>
-
-      {editFields.includes("content") ? (
-        <fieldset className="note-field edit-content">
-          <textarea
-            type="text"
-            name="content"
-            value={editForm.content}
-            onChange={handleChange}
-            className="textarea-input edit"
-          />
-          <div className="edit-cta content">
-            <button
-              type="button"
-              className="edit-btn save"
-              onClick={() => {
-                handleSave("content");
-              }}
-            >
-              <Check />
-            </button>
-            <button
-              type="button"
-              className="edit-btn cancel"
+          {editFields.includes("content") ? (
+            <fieldset className="note-field edit-content">
+              <legend className="sr-only">Edit Content</legend>
+              <textarea
+                type="text"
+                name="content"
+                value={editForm.content}
+                onChange={handleChange}
+                className="textarea-input edit"
+                aria-label="Edit content"
+              />
+              <div className="edit-cta content">
+                <button
+                  type="button"
+                  className="edit-btn save"
+                  onClick={() => handleSave("content")}
+                  aria-label="Save content"
+                >
+                  <Check />
+                </button>
+                <button
+                  type="button"
+                  className="edit-btn cancel"
+                  onClick={() => updateFields("content")}
+                  aria-label="Cancel editing content"
+                >
+                  <Close />
+                </button>
+              </div>
+            </fieldset>
+          ) : (
+            <div
+              className="detailed-note-content"
               onClick={() => updateFields("content")}
+              tabIndex={0}
+              role="button"
+              aria-label="Edit content"
             >
-              <Close />
-            </button>
-          </div>
-        </fieldset>
-      ) : (
-        <div
-          className="detailed-note-content"
-          onClick={() => updateFields("content")}
-        >
-          <pre className="content-text">{obj?.content}</pre>
+              <pre className="content-text">{obj?.content}</pre>
+            </div>
+          )}
         </div>
+      ) : (
+        <p className="no-notes-text">
+          You don’t have any notes available in this tab. Start a new note to capture your
+          thoughts and ideas.
+        </p>
       )}
-    </div>
+    </>
   );
 }
 

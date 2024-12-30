@@ -4,7 +4,7 @@ import { DataContext } from "../../App";
 import { span } from "framer-motion/client";
 
 function ThemeOptions() {
-  const { notes, dispatchNotes,isDark } = useContext(DataContext);
+  const { notes, dispatchNotes, isDark } = useContext(DataContext);
   const themeData = {
     colorTheme: {
       id: "colorTheme",
@@ -59,21 +59,29 @@ function ThemeOptions() {
   };
   const obj = themeData[notes.settingsCurrentTab];
   return (
-    <article className="theme-options-wrapper">
+    <article
+      className="theme-options-wrapper"
+      role="region"
+      aria-labelledby="theme-title"
+    >
       <header className="theme-options-header">
-        <h3 className="theme-title">{obj.text}</h3>
+        <h3 id="theme-title" className="theme-title">
+          {obj.text}
+        </h3>
         <p className="theme-parag">{obj.parag}</p>
       </header>
-      <ul className="theme-options-list">
-        {obj.options.map((option,index) => {
+      <ul className="theme-options-list" role="list">
+        {obj.options.map((option, index) => {
           const isSelected = option.id === notes[obj.id];
           const isSerif = index === 1;
           const isMono = index === 2;
           return (
-            <li key={option.id} className="theme-option-item">
+            <li key={option.id} className="theme-option-item" role="listitem">
               <button
                 type="button"
-                className={`theme-option-btn ${isSelected && "current-theme"} ${isDark && isSelected && "dark-card-bg"} ${isDark && "dark-border"}`}
+                className={`theme-option-btn ${isSelected && "current-theme"} ${
+                  isDark && isSelected && "dark-card-bg"
+                } ${isDark && "dark-border"}`}
                 onClick={() => {
                   dispatchNotes({
                     type: "UPDATE_TAB",
@@ -83,13 +91,24 @@ function ThemeOptions() {
                     },
                   });
                 }}
+                aria-pressed={isSelected}
+                aria-label={`Change ${obj.id} to ${option.label}`}
               >
                 <span className="left-side-wrapper">
-                  <span className={`icon-wrapper ${isDark && "dark-border"}`}>
+                  <span
+                    className={`icon-wrapper ${isDark && "dark-border"}`}
+                    aria-hidden="true"
+                  >
                     {obj.id === "colorTheme" ? (
                       <option.icon />
                     ) : (
-                      <span className={`font-option ${isSerif && "serif"} ${isMono && "mono"}`}>{option.text}</span>
+                      <span
+                        className={`font-option ${isSerif && "serif"} ${
+                          isMono && "mono"
+                        }`}
+                      >
+                        {option.text}
+                      </span>
                     )}
                   </span>
                   <span className="text-wrapper">
@@ -99,6 +118,7 @@ function ThemeOptions() {
                 </span>
                 <span
                   className={`right-icon ${isSelected && "current-icon"}`}
+                  aria-hidden="true"
                 ></span>
               </button>
             </li>

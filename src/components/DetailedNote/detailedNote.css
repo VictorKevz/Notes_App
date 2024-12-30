@@ -58,14 +58,14 @@
 .title-input.edit,
 .tags-input.edit {
   min-width: fit-content;
-  font-size: 1.4rem;
-  color: var(--blue-500);
+  font-size: 2rem;
+  color: rgb(61, 80, 170);
   transition: 0.3s ease-in-out;
-  border-bottom: 1px solid var(--neutral-200);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.35) !important;
 }
 .title-input.edit:focus,
 .tags-input.edit {
-  border-bottom: 1px solid var(--neutral-200) !important;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.343) !important;
 }
 .tags-input.edit {
   margin-top: 1.6rem;
@@ -75,13 +75,15 @@
   min-width: 2.5rem;
   border-radius: 0.5rem;
   background-color: var(--blue-500);
-  color: var(--neutral-0);
+  color: var(--neutral-0)!important;
 }
 .edit-btn.cancel {
   background-color: var(--red-500);
+  color: var(--neutral-0)!important;
+
 }
 .textarea-input.edit {
-  color: var(--blue-500);
+  color: rgb(61, 80, 170);
   font-size: 1.4rem;
   border: none;
   min-height: 500px;
@@ -90,7 +92,7 @@
 .note-field.edit-content {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--neutral-100);
+  border: 1px solid rgba(128, 128, 128, 0.343) !important;
   transition: 0.3s ease-in-out;
   border-radius: 0.64rem;
   padding: 1rem;
@@ -102,5 +104,10 @@ justify-content: flex-end;
 }
 .textarea-input.edit:focus {
   border: none;
+}
+.no-notes-text{
+  font-size: 1.4rem;
+  padding: 2rem 3.2rem;
+  text-align: center;
 }
 

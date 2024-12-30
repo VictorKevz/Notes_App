@@ -13,32 +13,47 @@ function TagList() {
   const tagsList = notes?.notesData.map((obj) => obj.tags);
   const tagsArray = [...new Set(tagsList?.flat())];
   return (
-    <ul className={`tag-list ${isDark && "dark-tag-list"}`}>
-      <li className="tag-heading-item">
+    <ul
+      className={`tag-list ${isDark && "dark-tag-list"}`}
+      role="list"
+      aria-label="List of Tags"
+    >
+      <li className="tag-heading-item" role="listitem">
         <h3 className={`tag-heading`}>Tags</h3>
       </li>
       {tagsArray.map((tag) => {
         const isCurrent = tag === notes.currentTag;
         return (
-          <li key={tag} className={`tag-item ${isDark && "dark-tag"}`}>
+          <li
+            key={tag}
+            className={`tag-item ${isDark && "dark-tag"}`}
+            role="listitem"
+          >
             <button
               type="button"
-              className={`btn desktop ${isCurrent && "current-link"} ${isDark && isCurrent && "dark-card-bg"}`}
+              className={`btn desktop ${isCurrent && "current-link"} ${
+                isDark && isCurrent && "dark-card-bg"
+              }`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",
                   payload: { tab: "tags", key: "asideCurrentTab" },
                 });
                 dispatchNotes({ type: "UPDATE_TAG", payload: { tag } });
-                // dispatchNotes({ type: "TOGGLE_DETAILS_PAGE" });
               }}
+              aria-pressed={isCurrent}
+              aria-label={`Select tag: ${tag}`}
             >
-              <span className={`btn-text ${isDark && "dark-text-secondary"}`}>
+              <span
+                className={`btn-text ${isDark && "dark-text-secondary"}`}
+                aria-hidden="true"
+              >
                 <LocalOfferOutlined
                   className={`tag-icon ${isCurrent && "current-icon"} `}
                 />
                 {tag}
               </span>
+              <span className="sr-only">{`Tag: ${tag}`}</span>
               {isCurrent && <KeyboardArrowRight />}
             </button>
             <Link
@@ -51,8 +66,12 @@ function TagList() {
                   payload: { tab: "tags", key: "asideCurrentTab" },
                 });
               }}
+              aria-label={`Filter by tag: ${tag}`}
             >
-              <LocalOfferOutlined className={`tag-icon ${isDark && "dark-text-secondary"}`} />
+              <LocalOfferOutlined
+                className={`tag-icon ${isDark && "dark-text-secondary"}`}
+                aria-hidden="true"
+              />
               {tag}
             </Link>
           </li>

@@ -11,6 +11,7 @@
 .note-form-field,.tag-label,.lastEdited{
     display: flex;
     align-items: center;
+    
 }
 
 .title-input,.tags-input,.title-label{
@@ -29,22 +30,36 @@
     border-bottom: 1px solid var(--neutral-200);
     transition: .3s ease-in-out;
 }
+/* DARK MODE ACTIVE STATE */
+.title-input.dark-title:focus,.tags-input.dark-tags:focus{
+    outline: none;
+    border-bottom: 1px solid var(--neutral-800);
+    transition: .3s ease-in-out;
+    color: rgb(61, 80, 170);
+    caret-color: var(--neutral-0);
+}
+.dark-title,.dark-tags{
+    color: rgb(61, 80, 170);
+
+}
 .tags-lastEdited-wrapper{
     width: 100%;
     padding: 1.6rem 0;
     border-bottom: 1px solid var(--neutral-200);
 }
-.tag-label{
+.tag-label,.edit-label{
     gap: .6rem;
     max-width: 115px;
     width: 100%;
     font-size: 1.4rem;
-    margin-bottom: .8rem;
 }
-.tags
-.lastEdited{
-    display: flex;
+
+.lastEdited,.edit-label{
+    display: flex!important;
     align-items: center;
+}
+.lastEdited{
+    margin-top: 1rem;
 }
 .lastEdited-text{
     font-size: 1.4rem;
@@ -70,6 +85,14 @@ min-height: 567px;
     padding: 1.6rem;
     transition: .3s ease-in-out;
     border-radius: .64rem;
+}
+.textarea-input.dark-content:focus{
+    border: 1px solid var(--neutral-800)!important;
+    caret-color: var(--blue-500);
+    color: rgb(65, 82, 131);
+    font-size: 1.6rem;
+    caret-color: var(--neutral-0);
+
 }
 .form-btn-wrapper{
     margin-top: 1.6rem;

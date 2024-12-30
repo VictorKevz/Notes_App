@@ -31,10 +31,7 @@ function AsideBar() {
         </ul>
         <ul className="links-wrapper mobile">
           <TabNav data={headerLinks} tabKey="asideCurrentTab" />
-          {/* <li className="tags-list-item"> 
-          <TagList />
-
-          </li> */}
+          
         </ul>
       </nav>
     </aside>

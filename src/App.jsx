@@ -234,7 +234,7 @@ function App() {
     }
     if (notes.asideCurrentTab === "tags") {
       title = `Notes Tagged: ${notes.currentTag}`;
-      parag=`All notes tagged with ${notes.currentTag} are stored here.`
+      parag=`All notes tagged with '${notes.currentTag}' are stored here.`
     }
     if (notes.asideCurrentTab === "searchTab") {
       title = `Search`;
