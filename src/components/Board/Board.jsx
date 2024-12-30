@@ -106,7 +106,7 @@ function Board() {
             <SearchBar />
             <NavLink
               // type="button"
-              className={`settings-btn ${isSettings && "active-settings-btn"}`}
+              className={`settings-btn ${isSettings && "active-settings-btn"} ${isSettings && isDark && "dark-card-bg"}`}
               onClick={() => {
                 dispatchNotes({
                   type: "UPDATE_TAB",
@@ -147,15 +147,15 @@ function Board() {
         )}
       </section>
 
-      <section className="tablet-mobile-board">
-        <header className="aside-header mobile">
+      <section className={`tablet-mobile-board ${isDark && "dark-body-bg"}`}>
+        <header className={`aside-header ${isDark && "dark-card-bg"}`}>
           <img
             src={isDark ? logoDark : logo}
             alt="Notes App logo"
             className="logo"
           />
         </header>
-        <div className="notes-wrapper">
+        <div className={`notes-wrapper ${isDark && "dark-body-bg"}`}>
           {notes.asideCurrentTab !== "settingsTab" &&
             isTablet &&
             !notes.showForm && (
@@ -204,7 +204,7 @@ function Board() {
           </Routes>
         </div>
 
-        <div className="mobile-aside-container">
+        <div className={`mobile-bottom-bar ${isDark && "dark-body-bg"}`}>
           <AsideBar />
         </div>
       </section>

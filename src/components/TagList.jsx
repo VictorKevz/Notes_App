@@ -15,12 +15,12 @@ function TagList() {
   return (
     <ul className={`tag-list ${isDark && "dark-tag-list"}`}>
       <li className="tag-heading-item">
-        <h3 className="tag-heading">Tags</h3>
+        <h3 className={`tag-heading`}>Tags</h3>
       </li>
       {tagsArray.map((tag) => {
         const isCurrent = tag === notes.currentTag;
         return (
-          <li key={tag} className="tag-item">
+          <li key={tag} className={`tag-item ${isDark && "dark-tag"}`}>
             <button
               type="button"
               className={`btn desktop ${isCurrent && "current-link"} ${isDark && isCurrent && "dark-card-bg"}`}

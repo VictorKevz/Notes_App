@@ -4,11 +4,12 @@ import { DataContext } from "../App";
 import NoteCards from "./NoteCard/NoteCards";
 
 function SearchBar() {
-  const { query, setQuery, searchResults,dispatchNotes } = useContext(DataContext);
+  const { query, setQuery, searchResults, dispatchNotes, isDark, isTablet } =
+    useContext(DataContext);
 
   return (
     <div className="search-bar mobile">
-      <fieldset className="field">
+      <fieldset className={`field ${isDark && "dark-border"}`}>
         <SearchOutlined />
         <label htmlFor="searchBar" className="search-label">
           <input
@@ -16,7 +17,10 @@ function SearchBar() {
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
-dispatchNotes({type:"UPDATE_TAB",payload:{tab:"searchTab",key:"asideCurrentTab"}});
+              dispatchNotes({
+                type: "UPDATE_TAB",
+                payload: { tab: "searchTab", key: "asideCurrentTab" },
+              });
             }}
             className="search-input"
             id="searchBar"
@@ -24,9 +28,11 @@ dispatchNotes({type:"UPDATE_TAB",payload:{tab:"searchTab",key:"asideCurrentTab"}
           />
         </label>
       </fieldset>
-      <div className="search-results">
-      <NoteCards data={searchResults} />
-      </div>
+      {isTablet && (
+        <div className="search-results">
+          <NoteCards data={searchResults} />
+        </div>
+      )}
     </div>
   );
 }

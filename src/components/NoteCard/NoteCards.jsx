@@ -26,16 +26,16 @@ function NoteCards({ data }) {
           <Link to="/tags" className="go-back-link tags">
             <KeyboardArrowLeft /> Go Back
           </Link>
-          <h2 className="main-title">Notes Tagged : {notes?.currentTag}</h2>
-          <p className="main-paragraph">
+          <h2 className={`main-title ${isDark && "dark-text-primary"}`}>Notes Tagged : {notes?.currentTag}</h2>
+          <p className={`main-paragraph ${isDark && "dark-text-secondary"}`}>
             All notes with the '{notes?.currentTag}' tag are shown here.
           </p>
         </div>
       )}
       {isTablet && notes.asideCurrentTab !== "tags" && (
        <>
-        <h1 className="main-title">{getContent().title}</h1>
-        <p className="main-paragraph">{getContent().parag}</p>
+        <h1 className={`main-title ${isDark && "dark-text-primary"}`}>{getContent().title}</h1>
+        <p className={`main-paragraph ${isDark && "dark-text-secondary"}`}>{getContent().parag}</p>
        </>
 
       )}
@@ -52,7 +52,7 @@ function NoteCards({ data }) {
           {isTablet ? (
             <NavLink
             key={note.id}
-            className={`note-card ${isCurrent && "current-note"} `}
+            className={`note-card ${isDark && "dark-note"}`}
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -63,7 +63,7 @@ function NoteCards({ data }) {
             <h3 className="note-title">{note?.title}</h3>
             <ul className="card-tag-list">
               {note?.tags?.map((tag, i) => (
-                <li key={i} className="card-tag-item">
+                <li key={i} className={`card-tag-item ${isDark && "dark-tag-item"}`}>
                   {tag}
                 </li>
               ))}
